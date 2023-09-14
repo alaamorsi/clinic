@@ -11,7 +11,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(),
-        body: Center(child: TextButton(onPressed: (){},child: Text('احجزلي نااااااااااو',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),)),
+        body: Center(child: TextButton(onPressed: (){
+          Container(
+            color: Colors.red,
+            width: double.infinity,
+            child: Text('حجزتلك ناااااااااااو',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
+          );
+        },child: Text('احجزلي نااااااااااو',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),)),
       ),
     );
   }
