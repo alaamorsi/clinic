@@ -9,7 +9,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Container(),
+      home: Scaffold(
+        appBar: AppBar(),
+        body: Center(child: TextButton(onPressed: (){},child: Text('احجزلي نااااااااااو',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),)),
+      ),
     );
   }
 }
