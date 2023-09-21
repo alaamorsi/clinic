@@ -1,7 +1,16 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myclinic/firebase_options.dart';
+import 'package:myclinic/layout/doctor_layiut/cubit/cubit.dart';
+import 'package:myclinic/layout/patient_layout/cubit/cubit.dart';
+import 'package:myclinic/modules/login/login_screen1.dart';
+import 'package:myclinic/modules/login/login_screen2.dart';
+import 'package:myclinic/shared/components/bloc_observer.dart';
+import 'package:myclinic/shared/components/cache_helper.dart';
 import 'package:myclinic/shared/components/components.dart';
+import 'package:myclinic/shared/components/cubit/cubit.dart';
+import 'package:myclinic/shared/components/cubit/states.dart';
 
 void main() async{
   // بيتأكد ان كل حاجه هنا في الميثود خلصت و بعدين يتفح الابلكيشن
@@ -10,33 +19,55 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp( MyApp());
+
+  Bloc.observer = MyBlocObserver();
+  await CacheHelper.init();
+
+  // uId = CacheHelper.getData(key: 'uId');
+  // if(uId != null)
+  // {
+  //   widget = Layout();
+  // } else {
+  //   widget = LoginScreen();
+  // }
+  // Widget? widget;
+
+
+
+
+
+
+
+
+
+  runApp( MyApp(
+    // startWidget: widget,
+  ));
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
+class MyApp extends StatelessWidget {
 
-TextEditingController v = TextEditingController();
-class _MyAppState extends State<MyApp> {
+  // final Widget? startWidget;
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(),
-        body: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Center(
-            child: defaultFormField(
-                controller: v,
-                type: TextInputType.text,
-                validate: (){},
-                label: 'الأسم',
-                prefixIcon: Icons.person,),
-          ),
-        ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (BuildContext context) => AppCubit()),
+        BlocProvider(
+            create: (BuildContext context) => DoctorCubit()),
+        BlocProvider(
+            create: (BuildContext context) => PatientCubit()),
+      ],
+      child: BlocConsumer<AppCubit, AppStates>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: LoginScreen(),
+          );
+        },
       ),
     );
   }

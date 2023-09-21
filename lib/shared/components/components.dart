@@ -11,24 +11,25 @@ Widget firstButton({
   double height = 60,
   bool isUpperCase = true,
   double radius = 10.0,
-  required Function function,
+  required function,
   required String text,
 }) =>
     Container(
       width: width,
       height: height,
       child: TextButton(
-        onPressed: function(),
-        child: Text(isUpperCase ? text.toUpperCase() : text,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 25
-          ),
+        onPressed: function,
+        child: Text(
+          isUpperCase ? text.toUpperCase() : text,
+          style: TextStyle(color: Colors.white, fontSize: 25),
         ),
       ),
       decoration: BoxDecoration(
-        border: Border(top: BorderSide(color: Colors.black),bottom: BorderSide(color: Colors.black),
-          right: BorderSide(color: Colors.black),left: BorderSide(color: Colors.black)),
+        border: Border(
+            top: BorderSide(color: Colors.black),
+            bottom: BorderSide(color: Colors.black),
+            right: BorderSide(color: Colors.black),
+            left: BorderSide(color: Colors.black)),
         color: defaultColor,
         borderRadius: BorderRadius.circular(
           radius,
@@ -42,25 +43,27 @@ PreferredSizeWidget appBarWithIcon({
   required String title,
   IconData icon = Icons.notifications,
   navigateWidget = PatientNotificationsScreen,
-})
-=>AppBar(
-  title: Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28.0),),
-  actions: [
-      IconButton(
-          onPressed: (){
-            navigateTo(context, navigateWidget());
-            },
-          icon: Icon(icon)
+}) =>
+    AppBar(
+      title: Text(
+        title,
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28.0),
       ),
-  ],
-  centerTitle: true,
-  elevation: 5.0,
-  flexibleSpace: Container(
-    decoration: BoxDecoration(
-      color: Colors.white,
-    ),
-  ),
-);
+      actions: [
+        IconButton(
+            onPressed: () {
+              navigateTo(context, navigateWidget());
+            },
+            icon: Icon(icon)),
+      ],
+      centerTitle: true,
+      elevation: 5.0,
+      flexibleSpace: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+        ),
+      ),
+    );
 
 ////////////////////////////////////////////
 Widget appBarWithArrowBack({
@@ -68,18 +71,27 @@ Widget appBarWithArrowBack({
   String? title,
   IconData icon = Icons.arrow_back,
   navigateWidget = PatientNotificationsScreen,
-})
-=>Row(
-  mainAxisAlignment: MainAxisAlignment.start,
-  crossAxisAlignment: CrossAxisAlignment.center,
-  children: [
-    IconButton(onPressed: (){
-      Navigator.pop(context);
-    }, icon: Icon(icon),iconSize:iconSize,),
-    if(title !=null)
-      Text(title,style:TextStyle(fontSize: 30,),)
-  ],
-);
+}) =>
+    Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(icon),
+          iconSize: iconSize,
+        ),
+        if (title != null)
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 30,
+            ),
+          )
+      ],
+    );
 
 /////////////////////////////////////////////////////
 //default text form field
@@ -102,8 +114,10 @@ Widget defaultFormField({
       decoration: BoxDecoration(
         color: backGroundColor,
         border: Border(
-            top: BorderSide(color: Colors.black),bottom: BorderSide(color: Colors.black),
-            right: BorderSide(color: Colors.black),left: BorderSide(color: Colors.black)),
+            top: BorderSide(color: Colors.black),
+            bottom: BorderSide(color: Colors.black),
+            right: BorderSide(color: Colors.black),
+            left: BorderSide(color: Colors.black)),
         borderRadius: BorderRadius.circular(15),
       ),
       child: TextFormField(
@@ -132,23 +146,27 @@ Widget defaultFormField({
           return null;
         },
         decoration: InputDecoration(
-          hintText: label,
-          hintStyle: TextStyle(color: Colors.white,fontSize: 25),
-          prefixIcon: Icon(prefixIcon,color: Colors.white,size: 40,),
-          suffixIcon: suffixIcon != null
-              ? IconButton(
-                  onPressed: () {
-                    if(suffixPressed !=null){
-                      suffixPressed();
-                    }
-                    else {
-                      null;
-                    }},
-                  icon: Icon(suffixIcon),
-                )
-              : null,
-          border:InputBorder.none
-        ),
+            hintText: label,
+            hintStyle: TextStyle(color: Colors.white, fontSize: 25),
+            prefixIcon: Icon(
+              prefixIcon,
+              color: Colors.white,
+              size: 40,
+            ),
+            suffixIcon: suffixIcon != null
+                ? IconButton(
+                    onPressed: () {
+                      if (suffixPressed != null) {
+                        suffixPressed();
+                      } else {
+                        null;
+                      }
+                    },
+                    icon: Icon(suffixIcon),
+                    color: Colors.white,
+                  )
+                : null,
+            border: InputBorder.none),
       ),
     );
 
