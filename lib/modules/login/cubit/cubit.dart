@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myclinic/modules/login/cubit/states.dart';
+import 'package:myclinic/shared/components/components.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
   LoginCubit() : super(LoginInitialState());
@@ -22,6 +23,9 @@ class LoginCubit extends Cubit<LoginStates> {
       print(value.user?.email);
       print(value.user?.uid);
       emit(LoginSuccessState(value.user!.uid));
+      if (state is LoginSuccessState) {
+        showToast(text: 'تم تسجيل الدخول بنجاح', state: ToastStates.SUCCESS);
+      }
     }).catchError((error) {
       emit(LoginErrorState(error.toString()));
     });

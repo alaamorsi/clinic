@@ -1,10 +1,10 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myclinic/modules/login/cubit/cubit.dart';
 import 'package:myclinic/modules/login/cubit/states.dart';
 import 'package:myclinic/shared/components/components.dart';
 
-// ignore: must_be_immutable
 class LoginScreen2 extends StatelessWidget {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
@@ -13,20 +13,33 @@ class LoginScreen2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context )=> LoginCubit(),
-      child: BlocConsumer<LoginCubit , LoginStates>(
-        listener: (context , state ){},
-        builder: (context , state ){
+      create: (BuildContext context) => LoginCubit(),
+      child: BlocConsumer<LoginCubit, LoginStates>(
+        listener: (context, state) {
+          if (state is LoginErrorState) {
+            showToast(text: 'البريد الالكتروني او كلمة المرور غير صحيح', state: ToastStates.ERROR);
+          }
+        },
+        builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
               title: Text(
                 'تسجيل الدخول',
-                style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+                style:
+                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
               ),
               centerTitle: true,
               backgroundColor: Colors.white12,
               elevation: 0.0,
-              leading: IconButton(onPressed: (){Navigator.pop(context);},icon: Icon(Icons.arrow_back,color: Colors.black,),),
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                ),
+              ),
             ),
             body: Padding(
               padding: const EdgeInsets.all(20.0),
@@ -39,7 +52,8 @@ class LoginScreen2 extends StatelessWidget {
                     defaultFormField(
                         controller: emailController,
                         type: TextInputType.emailAddress,
-                        validate: (String? value) {if (value!.isEmpty) {
+                        validate: (String? value) {
+                          if (value!.isEmpty) {
                             return 'رجاءً ادخل البريد الالكتروني الصحيح';
                           }
                         },
@@ -51,7 +65,8 @@ class LoginScreen2 extends StatelessWidget {
                     defaultFormField(
                       controller: passwordController,
                       type: TextInputType.visiblePassword,
-                      validate: (String? value) {if (value!.isEmpty) {
+                      validate: (String? value) {
+                        if (value!.isEmpty) {
                           return 'رجاءً ادخل كلمة المرور الصحيحة';
                         }
                       },
@@ -63,12 +78,30 @@ class LoginScreen2 extends StatelessWidget {
                         LoginCubit.get(context).changePasswordVisibility();
                       },
                     ),
-                    SizedBox(height: 20.0,),
+                    SizedBox(
+                      height: 20.0,
+                    ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 60.0),
-                      child: firstButton(function: (){}, text: 'تسجيل الدخول'),
+                      child: ConditionalBuilder(
+                        condition: state is! LoginLoadingState,
+                        builder: (context) => firstButton(
+                          function: () {
+                            if (formKey.currentState!.validate()) {
+                              LoginCubit.get(context).userLogin(
+                                email: emailController.text,
+                                password: passwordController.text,
+                              );
+                            }
+                          },
+                          text: 'تسجيل الدخول',
+                          isUpperCase: true,
+                        ),
+                        fallback: (context) =>
+                            Center(child: CircularProgressIndicator()),
+                      ),
                     ),
-                  ]
+                  ],
                 ),
               ),
             ),

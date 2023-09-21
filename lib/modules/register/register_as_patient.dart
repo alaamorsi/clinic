@@ -75,7 +75,17 @@ class RegisterAsPatient extends StatelessWidget {
                       SizedBox(height: 20,),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 60.0),
-                        child: firstButton(function: (){}, text: 'انشاء الحساب'),
+                        child: firstButton(function: (){
+                          if (formKey.currentState!.validate()) {
+                            RegisterCubit.get(context).PatientRegister(
+                              email: emailController.text,
+                              password: passwordController.text,
+                              name: nameController.text,
+                              phone: phoneController.text,
+                              address: addressController.text,
+                            );
+                          }
+                        }, text: 'انشاء الحساب'),
                       ),
                     ],
                   ),

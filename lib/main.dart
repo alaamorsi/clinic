@@ -2,13 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myclinic/firebase_options.dart';
-import 'package:myclinic/layout/doctor_layiut/cubit/cubit.dart';
+import 'package:myclinic/layout/doctor_layout/cubit/cubit.dart';
 import 'package:myclinic/layout/patient_layout/cubit/cubit.dart';
 import 'package:myclinic/modules/login/login_screen1.dart';
-import 'package:myclinic/modules/login/login_screen2.dart';
 import 'package:myclinic/shared/components/bloc_observer.dart';
 import 'package:myclinic/shared/components/cache_helper.dart';
-import 'package:myclinic/shared/components/components.dart';
 import 'package:myclinic/shared/components/cubit/cubit.dart';
 import 'package:myclinic/shared/components/cubit/states.dart';
 

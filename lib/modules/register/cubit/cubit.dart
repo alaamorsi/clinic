@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myclinic/models/doctor_model.dart';
 import 'package:myclinic/models/patient_model.dart';
 import 'package:myclinic/modules/register/cubit/states.dart';
+import 'package:myclinic/shared/components/components.dart';
 
 class RegisterCubit extends Cubit<RegisterStates> {
   RegisterCubit() : super(RegisterInitialState());
@@ -26,6 +27,9 @@ class RegisterCubit extends Cubit<RegisterStates> {
     ).then((value)
     {
       DoctorCreate(name: name, email: email, phone: phone, uid: value.user!.uid,address:address);
+      if (state is RegisterSuccessState) {
+        showToast(text: 'تم التسجيل بنجاح', state: ToastStates.SUCCESS);
+      }
     }
     ).catchError((error)
     {
@@ -81,6 +85,9 @@ class RegisterCubit extends Cubit<RegisterStates> {
     ).then((value)
     {
       PatientCreate(name: name, email: email, phone: phone, uid: value.user!.uid, address: address);
+      if (state is RegisterSuccessState) {
+        showToast(text: 'تم التسجيل بنجاح', state: ToastStates.SUCCESS);
+      }
     }
     ).catchError((error)
     {

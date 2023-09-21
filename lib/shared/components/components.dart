@@ -1,9 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
-import '../../modules/patient_modules/notifications.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:myclinic/modules/patient_modules/notifications.dart';
 
 Color defaultColor = Color.fromRGBO(14, 213, 213, 15);
-double iconSize = 35;
+double iconSize = 30;
 
 //used for all buttons in login
 Widget firstButton({
@@ -19,16 +20,17 @@ Widget firstButton({
       height: height,
       child: TextButton(
         onPressed: function,
-        child: Text(isUpperCase ? text.toUpperCase() : text,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 25,
-          ),
+        child: Text(
+          isUpperCase ? text.toUpperCase() : text,
+          style: TextStyle(color: Colors.white, fontSize: 25),
         ),
       ),
       decoration: BoxDecoration(
-        border: Border(top: BorderSide(color: Colors.black),bottom: BorderSide(color: Colors.black),
-          right: BorderSide(color: Colors.black),left: BorderSide(color: Colors.black)),
+        border: Border(
+            top: BorderSide(color: Colors.black),
+            bottom: BorderSide(color: Colors.black),
+            right: BorderSide(color: Colors.black),
+            left: BorderSide(color: Colors.black)),
         color: defaultColor,
         borderRadius: BorderRadius.circular(
           radius,
@@ -46,12 +48,12 @@ PreferredSizeWidget appBarWithIcon({
 =>AppBar(
   title: Text(title, style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold, fontSize: 28.0),),
   actions: [
-      IconButton(
-          onPressed: (){
-            navigateTo(context, navigateWidget());
-            },
-          icon: Icon(icon,color: Colors.grey,size: iconSize,)
-      ),
+    IconButton(
+        onPressed: (){
+          navigateTo(context, navigateWidget());
+        },
+        icon: Icon(icon,color: Colors.grey,size: iconSize,)
+    ),
   ],
   centerTitle: true,
   elevation: 5.0,
@@ -70,10 +72,10 @@ PreferredSizeWidget appBarWithArrowBack({
   navigateWidget = PatientNotificationsScreen,
 })
 =>AppBar(
-    leading: IconButton(onPressed: (){
-      Navigator.pop(context);
-    }, icon: Icon(icon),iconSize:iconSize,color: Colors.black),
-    title: Text(title, style: TextStyle(color: Colors.black, fontSize: 30.0),),
+  leading: IconButton(onPressed: (){
+    Navigator.pop(context);
+  }, icon: Icon(icon),iconSize:iconSize,color: Colors.black),
+  title: Text(title, style: TextStyle(color: Colors.black, fontSize: 30.0),),
   centerTitle: true,
   elevation: 0.0,
   flexibleSpace: Container(
@@ -165,3 +167,37 @@ void navigateAndFinish(context, widget) => Navigator.pushAndRemoveUntil(
       ),
       (Route<dynamic> rout) => false,
     );
+void showToast({
+  required String text,
+  required ToastStates state,
+}) =>
+    Fluttertoast.showToast(
+      msg: text,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 5,
+      backgroundColor: chooseToastColor(state),
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+
+// enum
+enum ToastStates { SUCCESS, ERROR, WARNING }
+
+Color chooseToastColor(ToastStates state) {
+  Color color;
+
+  switch (state) {
+    case ToastStates.SUCCESS:
+      color = Colors.green;
+      break;
+    case ToastStates.ERROR:
+      color = Colors.red;
+      break;
+    case ToastStates.WARNING:
+      color = Colors.amber;
+      break;
+  }
+
+  return color;
+}
