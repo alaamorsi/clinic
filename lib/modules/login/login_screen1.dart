@@ -1,11 +1,13 @@
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+// import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myclinic/modules/login/cubit/cubit.dart';
 import 'package:myclinic/modules/login/login_screen2.dart';
 import 'package:myclinic/modules/login/cubit/states.dart';
+import 'package:myclinic/modules/register/register_screen.dart';
 import 'package:myclinic/shared/components/components.dart';
 
+// ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
   var emailController = TextEditingController();
@@ -63,10 +65,11 @@ class LoginScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          TextButton(onPressed: (){}, child: Text('إنشاء حساب',style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold,color: Colors.red))),
+                          TextButton(onPressed: (){
+                            navigateTo(context, RegisterScreen());
+                          }, child: Text('إنشاء حساب',style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold,color: Colors.red))),
                           SizedBox(width: 10.0,),
                           Text('ليس لديك حساب ؟',style: TextStyle(fontSize: 16.0),),
-
                         ],
                       )
                     ],

@@ -22,7 +22,7 @@ Widget firstButton({
         child: Text(isUpperCase ? text.toUpperCase() : text,
           style: TextStyle(
             color: Colors.white,
-            fontSize: 25
+            fontSize: 25,
           ),
         ),
       ),
@@ -75,7 +75,7 @@ PreferredSizeWidget appBarWithArrowBack({
     }, icon: Icon(icon),iconSize:iconSize,color: Colors.black),
     title: Text(title, style: TextStyle(color: Colors.black, fontSize: 30.0),),
   centerTitle: true,
-  elevation: 5.0,
+  elevation: 0.0,
   flexibleSpace: Container(
     decoration: BoxDecoration(
       color: Colors.white,
@@ -88,15 +88,15 @@ PreferredSizeWidget appBarWithArrowBack({
 Widget defaultFormField({
   required TextEditingController controller,
   required TextInputType type,
-  Function? onSubmit,
-  Function? onChange,
+  void Function(String)? onSubmit,
+  Function(String val)? onChanged,
   bool isPassword = false,
   Color backGroundColor = const Color.fromRGBO(14, 213, 213, 15),
-  required Function validate,
+  required String? Function(String? val)? validate,
   required String label,
   required IconData prefixIcon,
   IconData? suffixIcon,
-  Function? suffixPressed,
+  void Function()? suffixPressed,
   bool isClickable = true,
 }) =>
     Container(
@@ -104,8 +104,10 @@ Widget defaultFormField({
       decoration: BoxDecoration(
         color: backGroundColor,
         border: Border(
-            top: BorderSide(color: Colors.black),bottom: BorderSide(color: Colors.black),
-            right: BorderSide(color: Colors.black),left: BorderSide(color: Colors.black)),
+            top: BorderSide(color: Colors.black),
+            bottom: BorderSide(color: Colors.black),
+            right: BorderSide(color: Colors.black),
+            left: BorderSide(color: Colors.black)),
         borderRadius: BorderRadius.circular(15),
       ),
       child: TextFormField(
@@ -115,42 +117,26 @@ Widget defaultFormField({
         enabled: isClickable,
         cursorColor: Colors.white,
         textAlign: TextAlign.end,
-        onFieldSubmitted: (v) {
-          if (onSubmit != null) {
-            onSubmit(v);
-          } else {
-            null;
-          }
-        },
-        onChanged: (v) {
-          if (onChange != null) {
-            onChange();
-          } else {
-            null;
-          }
-        },
-        validator: (v) {
-          validate(v);
-          return null;
-        },
+        onFieldSubmitted: onSubmit,
+        onChanged: onChanged,
+        validator: validate,
         decoration: InputDecoration(
-          hintText: label,
-          hintStyle: TextStyle(color: Colors.white,fontSize: 25),
-          prefixIcon: Icon(prefixIcon,color: Colors.white,size: 40,),
-          suffixIcon: suffixIcon != null
-              ? IconButton(
-                  onPressed: () {
-                    if(suffixPressed !=null){
-                      suffixPressed();
-                    }
-                    else {
-                      null;
-                    }},
-                  icon: Icon(suffixIcon),
-                )
-              : null,
-          border:InputBorder.none
-        ),
+            hintText: label,
+            hintStyle: TextStyle(color: Colors.white, fontSize: 25),
+            prefixIcon: Icon(
+              prefixIcon,
+              color: Colors.white,
+              size: 40,
+            ),
+            suffixIcon: suffixIcon != null
+                ? IconButton(
+              onPressed: suffixPressed,
+              icon: Icon(
+                suffixIcon,
+              ),
+            )
+                : null,
+            border: InputBorder.none),
       ),
     );
 

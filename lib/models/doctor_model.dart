@@ -2,6 +2,12 @@ class DoctorModel {
   late String name;
   late String email;
   late String phone;
+  late String specialty;
+  late String experience;
+  late String workDays;
+  late String workHours;
+  late String kPrice;
+  late String rPrice;
   late String uid;
   late String image;
   late String address;
@@ -12,9 +18,15 @@ class DoctorModel {
     required this.email,
     required this.phone,
     required this.uid,
+    required this.experience,
+    required this.specialty,
     required this.image,
     required this.address,
     required this.isEmailVerified,
+    required this.kPrice,
+    required this.rPrice,
+    required this.workDays,
+    required this.workHours
   });
 
   DoctorModel.fromJson(Map<String,dynamic>?json,{data})
@@ -25,6 +37,12 @@ class DoctorModel {
     phone=json['phone'];
     image=json['image'];
     address=json['address'];
+    specialty=json['specialty'];
+    experience=json['experience'];
+    workHours=json['workHours'];
+    workDays=json['workDays'];
+    kPrice=json['kPrice'];
+    rPrice=json['rPrice'];
     isEmailVerified=json['isEmailVerified'];
   }
 
@@ -37,6 +55,12 @@ class DoctorModel {
       'uid':uid,
       'image':image,
       'address':address,
+      'specialty':specialty,
+      'experience':experience,
+      'workDays':workDays,
+      'workHours':workHours,
+      'kPrice':kPrice,
+      'rPrice':rPrice,
       'isEmailVerified':isEmailVerified,
     };
   }

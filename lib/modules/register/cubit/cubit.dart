@@ -50,6 +50,12 @@ class RegisterCubit extends Cubit<RegisterStates> {
       isEmailVerified: false,
       image: 'https://www.shutterstock.com/image-photo/young-handsome-man-beard-wearing-600w-1768126784.jpg',
       address: address,
+      experience: '3',
+      specialty: 'اطفال',
+      kPrice: '100',
+      rPrice: '50',
+      workDays: '1,2,3,4,5',
+      workHours: '5',
     );
 
     FirebaseFirestore.instance.collection('doctors').doc(uid).set(model.toMap())
@@ -109,13 +115,13 @@ class RegisterCubit extends Cubit<RegisterStates> {
     });
   }
 
-  IconData suffix = Icons.visibility_outlined;
+  IconData suffixIcon = Icons.visibility_outlined;
   bool isPassword = true;
 
   void changePasswordVisibility()
   {
     isPassword = !isPassword;
-    suffix = isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined ;
+    suffixIcon = isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined ;
     emit(RegisterChangePasswordVisibilityState());
   }
 }

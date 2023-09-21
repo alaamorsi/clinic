@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myclinic/modules/patient_modules/notifications.dart';
+import 'package:myclinic/modules/register/cubit/cubit.dart';
+import 'package:myclinic/modules/register/cubit/states.dart';
 import 'package:myclinic/shared/components/components.dart';
 
 // ignore: must_be_immutable
@@ -14,51 +17,74 @@ class RegisterAsPatient extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: appBarWithArrowBack(context: context,title: 'انشأ حساب طبيب ',),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              defaultFormField(
-                  controller: nameController, type: TextInputType.name,
-                  validate: (String value) {if (value.isEmpty) {return 'name is too short';}},
-                  label: 'الأسم', prefixIcon: Icons.person),
-              SizedBox(height: 20,),
-              defaultFormField(
-                  controller: emailController, type: TextInputType.emailAddress,
-                  validate: (String value) {if (value.isEmpty) {return 'email must not be empty';}},
-                  label: 'البريد الألكتروني', prefixIcon: Icons.email),
-              SizedBox(height: 20,),
-              defaultFormField(
-                  controller: phoneController, type: TextInputType.number,
-                  validate: (String value) {if (value.isEmpty) {return 'phone is too short';}},
-                  label: 'رقم الهاتف', prefixIcon: Icons.phone),
-              SizedBox(height: 20,),
-              defaultFormField(
-                  controller: addressController, type: TextInputType.streetAddress,
-                  validate: (String value) {if (value.isEmpty) {return 'your address must not be empty';}},
-                  label: 'العنوان', prefixIcon: Icons.location_pin),
-              SizedBox(height: 20,),
-              defaultFormField(
-                  controller: passwordController, type: TextInputType.text,
-                  validate: (String value) {if (value.isEmpty) {return 'password is too short';}},
-                  label: 'الباسورد', prefixIcon: Icons.lock),
-              SizedBox(height: 20,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  firstButton(
-                      width: 200,height: 40,
-                      function: (){navigateTo(context, PatientNotificationsScreen());}, text: 'انشاء الحساب'),
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
+    return BlocProvider(
+      create: (BuildContext context )=> RegisterCubit(),
+      child: BlocConsumer<RegisterCubit,RegisterStates>(
+        listener: (context,state) {
+          // if (state is CreatePatientSuccessState)
+          //   {
+          //     navigateAndFinish(context, PatientLayout());
+          //   }
+        },
+        builder: (context,state) {
+          return Scaffold(
+            backgroundColor: Colors.white,
+            appBar: appBarWithArrowBack(context: context,title: 'انشأ حساب طبيب ',),
+            body: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Form(
+                key: formKey,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      defaultFormField(
+                          controller: nameController, type: TextInputType.name,
+                          validate: (String? value) {if (value!.isEmpty) {return 'رجاءً ادخل الأسم بشكل صحيح';}
+                          return null;},
+                          label: 'الأسم', prefixIcon: Icons.person),
+                      SizedBox(height: 20.0,),
+                      defaultFormField(
+                          controller: emailController, type: TextInputType.emailAddress,
+                          validate: (String? value) {if (value!.isEmpty) {return 'رجاءً ادخل البريد الالكتروني الصحيح';}
+                          return null;},
+                          label: 'البريد الألكتروني', prefixIcon: Icons.email),
+                      SizedBox(height: 20.0,),
+                      defaultFormField(
+                          controller: phoneController, type: TextInputType.number,
+                          validate: (String? value) {if (value!.isEmpty) {return 'رجاءً ادخل رقم الهاتف بشكل صحيح';}
+                          return null;},
+                          label: 'رقم الهاتف', prefixIcon: Icons.phone),
+                      SizedBox(height: 20.0,),
+                      defaultFormField(
+                          controller: addressController, type: TextInputType.streetAddress,
+                          validate: (String? value) {if (value!.isEmpty) {return 'رجاءً ادخل العنوان بشكل صحيح';}
+                          return null;},
+                          label: 'العنوان', prefixIcon: Icons.location_pin),
+                      SizedBox(height: 20.0,),
+                      defaultFormField(
+                          controller: passwordController, type: TextInputType.text,
+                          validate: (String? value) {if (value!.isEmpty) {return 'رجاءً ادخل الباسورد الصحيح';}
+                          return null;},
+                          suffixIcon: RegisterCubit.get(context).suffixIcon,
+                          label: 'كلمة المرور',
+                          prefixIcon: Icons.lock_outline,
+                          isPassword: RegisterCubit.get(context).isPassword,
+                          suffixPressed: () {
+                            RegisterCubit.get(context).changePasswordVisibility();
+                          }),
+                      SizedBox(height: 20,),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 60.0),
+                        child: firstButton(function: (){}, text: 'انشاء الحساب'),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        }
+      )
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myclinic/layout/doctor_layiut/cubit/states.dart';
+import 'package:myclinic/layout/doctor_layout/cubit/states.dart';
 
 class DoctorCubit extends Cubit<DoctorStates> {
 

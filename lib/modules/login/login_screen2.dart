@@ -4,6 +4,7 @@ import 'package:myclinic/modules/login/cubit/cubit.dart';
 import 'package:myclinic/modules/login/cubit/states.dart';
 import 'package:myclinic/shared/components/components.dart';
 
+// ignore: must_be_immutable
 class LoginScreen2 extends StatelessWidget {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
@@ -38,8 +39,7 @@ class LoginScreen2 extends StatelessWidget {
                     defaultFormField(
                         controller: emailController,
                         type: TextInputType.emailAddress,
-                        validate: (String value) {
-                          if (value.isEmpty) {
+                        validate: (String? value) {if (value!.isEmpty) {
                             return 'رجاءً ادخل البريد الالكتروني الصحيح';
                           }
                         },
@@ -51,8 +51,7 @@ class LoginScreen2 extends StatelessWidget {
                     defaultFormField(
                       controller: passwordController,
                       type: TextInputType.visiblePassword,
-                      validate: (String value) {
-                        if (value.isEmpty) {
+                      validate: (String? value) {if (value!.isEmpty) {
                           return 'رجاءً ادخل كلمة المرور الصحيحة';
                         }
                       },
@@ -68,8 +67,8 @@ class LoginScreen2 extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 60.0),
                       child: firstButton(function: (){}, text: 'تسجيل الدخول'),
-                    )
-                  ],
+                    ),
+                  ]
                 ),
               ),
             ),
