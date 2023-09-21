@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../modules/patient_modules/notifications.dart';
 
 Color defaultColor = Color.fromRGBO(14, 213, 213, 15);
-double iconSize = 30;
+double iconSize = 35;
 
 //used for all buttons in login
 Widget firstButton({
@@ -11,14 +11,14 @@ Widget firstButton({
   double height = 60,
   bool isUpperCase = true,
   double radius = 10.0,
-  required Function function,
+  required function,
   required String text,
 }) =>
     Container(
       width: width,
       height: height,
       child: TextButton(
-        onPressed: function(),
+        onPressed: function,
         child: Text(isUpperCase ? text.toUpperCase() : text,
           style: TextStyle(
             color: Colors.white,
@@ -44,13 +44,13 @@ PreferredSizeWidget appBarWithIcon({
   navigateWidget = PatientNotificationsScreen,
 })
 =>AppBar(
-  title: Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28.0),),
+  title: Text(title, style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold, fontSize: 28.0),),
   actions: [
       IconButton(
           onPressed: (){
             navigateTo(context, navigateWidget());
             },
-          icon: Icon(icon)
+          icon: Icon(icon,color: Colors.grey,size: iconSize,)
       ),
   ],
   centerTitle: true,
@@ -63,22 +63,24 @@ PreferredSizeWidget appBarWithIcon({
 );
 
 ////////////////////////////////////////////
-Widget appBarWithArrowBack({
+PreferredSizeWidget appBarWithArrowBack({
   required BuildContext context,
-  String? title,
+  required String title,
   IconData icon = Icons.arrow_back,
   navigateWidget = PatientNotificationsScreen,
 })
-=>Row(
-  mainAxisAlignment: MainAxisAlignment.start,
-  crossAxisAlignment: CrossAxisAlignment.center,
-  children: [
-    IconButton(onPressed: (){
+=>AppBar(
+    leading: IconButton(onPressed: (){
       Navigator.pop(context);
-    }, icon: Icon(icon),iconSize:iconSize,),
-    if(title !=null)
-      Text(title,style:TextStyle(fontSize: 30,),)
-  ],
+    }, icon: Icon(icon),iconSize:iconSize,color: Colors.black),
+    title: Text(title, style: TextStyle(color: Colors.black, fontSize: 30.0),),
+  centerTitle: true,
+  elevation: 5.0,
+  flexibleSpace: Container(
+    decoration: BoxDecoration(
+      color: Colors.white,
+    ),
+  ),
 );
 
 /////////////////////////////////////////////////////

@@ -1,4 +1,4 @@
-class PatientModel {
+class DoctorModel {
   late String name;
   late String email;
   late String phone;
@@ -7,7 +7,7 @@ class PatientModel {
   late String address;
   late bool isEmailVerified;
 
-  PatientModel({
+  DoctorModel({
     required this.name,
     required this.email,
     required this.phone,
@@ -17,7 +17,7 @@ class PatientModel {
     required this.isEmailVerified,
   });
 
-  PatientModel.fromJson(Map<String,dynamic>?json,{data})
+  DoctorModel.fromJson(Map<String,dynamic>?json,{data})
   {
     uid=json!['uid'];
     name=json['name'];
