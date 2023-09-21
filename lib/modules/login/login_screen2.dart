@@ -5,6 +5,7 @@ import 'package:myclinic/modules/login/cubit/cubit.dart';
 import 'package:myclinic/modules/login/cubit/states.dart';
 import 'package:myclinic/shared/components/components.dart';
 
+// ignore: must_be_immutable
 class LoginScreen2 extends StatelessWidget {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
@@ -22,25 +23,7 @@ class LoginScreen2 extends StatelessWidget {
         },
         builder: (context, state) {
           return Scaffold(
-            appBar: AppBar(
-              title: Text(
-                'تسجيل الدخول',
-                style:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-              ),
-              centerTitle: true,
-              backgroundColor: Colors.white12,
-              elevation: 0.0,
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: Colors.black,
-                ),
-              ),
-            ),
+            appBar: appBarWithArrowBack(context: context, title: 'تسجيل الدخول'),
             body: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Form(

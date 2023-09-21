@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myclinic/modules/patient_modules/notifications.dart';
 import 'package:myclinic/modules/register/cubit/cubit.dart';
 import 'package:myclinic/modules/register/cubit/states.dart';
 import 'package:myclinic/shared/components/components.dart';
@@ -21,15 +20,14 @@ class RegisterAsPatient extends StatelessWidget {
       create: (BuildContext context )=> RegisterCubit(),
       child: BlocConsumer<RegisterCubit,RegisterStates>(
         listener: (context,state) {
-          // if (state is CreatePatientSuccessState)
-          //   {
-          //     navigateAndFinish(context, PatientLayout());
-          //   }
+          if (state is RegisterErrorState) {
+            showToast(text: 'البريد الالكتروني او كلمة المرور غير صحيح', state: ToastStates.ERROR);
+          }
         },
         builder: (context,state) {
           return Scaffold(
             backgroundColor: Colors.white,
-            appBar: appBarWithArrowBack(context: context,title: 'انشأ حساب طبيب ',),
+            appBar: appBarWithArrowBack(context: context,title: 'انشأ حساب مريض او زائر ',),
             body: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Form(
@@ -54,13 +52,6 @@ class RegisterAsPatient extends StatelessWidget {
                           validate: (String? value) {if (value!.isEmpty) {return 'رجاءً ادخل رقم الهاتف بشكل صحيح';}
                           return null;},
                           label: 'رقم الهاتف', prefixIcon: Icons.phone),
-                      SizedBox(height: 20.0,),
-                      defaultFormField(
-                          controller: addressController, type: TextInputType.streetAddress,
-                          validate: (String? value) {if (value!.isEmpty) {return 'رجاءً ادخل العنوان بشكل صحيح';}
-                          return null;},
-                          label: 'العنوان', prefixIcon: Icons.location_pin),
-                      SizedBox(height: 20.0,),
                       defaultFormField(
                           controller: passwordController, type: TextInputType.text,
                           validate: (String? value) {if (value!.isEmpty) {return 'رجاءً ادخل الباسورد الصحيح';}
@@ -82,7 +73,6 @@ class RegisterAsPatient extends StatelessWidget {
                               password: passwordController.text,
                               name: nameController.text,
                               phone: phoneController.text,
-                              address: addressController.text,
                             );
                           }
                         }, text: 'انشاء الحساب'),

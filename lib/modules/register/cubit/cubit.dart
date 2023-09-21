@@ -17,7 +17,6 @@ class RegisterCubit extends Cubit<RegisterStates> {
     required String email,
     required String password,
     required String phone,
-    required String address,
   })
   {
     emit(RegisterLoadingState());
@@ -26,7 +25,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
         password: password,
     ).then((value)
     {
-      DoctorCreate(name: name, email: email, phone: phone, uid: value.user!.uid,address:address);
+      DoctorCreate(name: name, email: email, phone: phone, uid: value.user!.uid);
       if (state is RegisterSuccessState) {
         showToast(text: 'تم التسجيل بنجاح', state: ToastStates.SUCCESS);
       }
@@ -43,7 +42,6 @@ class RegisterCubit extends Cubit<RegisterStates> {
     required String email,
     required String phone,
     required String uid,
-    required String address,
   })
   {
     DoctorModel model = DoctorModel(
@@ -53,13 +51,13 @@ class RegisterCubit extends Cubit<RegisterStates> {
       uid: uid,
       isEmailVerified: false,
       image: 'https://www.shutterstock.com/image-photo/young-handsome-man-beard-wearing-600w-1768126784.jpg',
-      address: address,
-      experience: '3',
-      specialty: 'اطفال',
-      kPrice: '100',
-      rPrice: '50',
-      workDays: '1,2,3,4,5',
-      workHours: '5',
+      address: '',
+      experience: '',
+      specialty: '',
+      kPrice: '',
+      rPrice: '',
+      workDays: '',
+      workHours: '',
     );
 
     FirebaseFirestore.instance.collection('doctors').doc(uid).set(model.toMap())
@@ -75,7 +73,6 @@ class RegisterCubit extends Cubit<RegisterStates> {
     required String email,
     required String password,
     required String phone,
-    required String address,
   })
   {
     emit(RegisterLoadingState());
@@ -84,7 +81,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
       password: password,
     ).then((value)
     {
-      PatientCreate(name: name, email: email, phone: phone, uid: value.user!.uid, address: address);
+      PatientCreate(name: name, email: email, phone: phone, uid: value.user!.uid);
       if (state is RegisterSuccessState) {
         showToast(text: 'تم التسجيل بنجاح', state: ToastStates.SUCCESS);
       }
@@ -101,7 +98,6 @@ class RegisterCubit extends Cubit<RegisterStates> {
     required String email,
     required String phone,
     required String uid,
-    required String address,
   })
   {
     PatientModel model = PatientModel(
@@ -111,7 +107,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
       uid: uid,
       isEmailVerified: false,
       image: 'https://www.shutterstock.com/image-photo/young-handsome-man-beard-wearing-600w-1768126784.jpg',
-      address: address,
+      address: '',
     );
 
     FirebaseFirestore.instance.collection('doctors').doc(uid).set(model.toMap())

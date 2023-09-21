@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myclinic/modules/patient_modules/notifications.dart';
 import 'package:myclinic/modules/register/cubit/cubit.dart';
 import 'package:myclinic/modules/register/cubit/states.dart';
 import 'package:myclinic/shared/components/components.dart';
@@ -22,10 +21,9 @@ class RegisterAsDoctor extends StatelessWidget {
       create: (BuildContext context) => RegisterCubit(),
       child: BlocConsumer<RegisterCubit, RegisterStates>(
         listener: (context, state) {
-          // if (state is CreateDoctorSuccessState)
-          //   {
-          //     navigateAndFinish(context, DoctorLayout());
-          //   }
+          if (state is RegisterErrorState) {
+            showToast(text: 'البريد الالكتروني او كلمة المرور غير صحيح', state: ToastStates.ERROR);
+          }
         },
         builder: (context, state) {
           return Scaffold(
@@ -53,18 +51,6 @@ class RegisterAsDoctor extends StatelessWidget {
                       height: 20.0,
                     ),
                     defaultFormField(
-                        controller: specialController,
-                        type: TextInputType.text,
-                        validate: (String? value) {
-                          if (value!.isEmpty)
-                            return 'رجاءً ادخل التخصص بشكل صحيح';
-                        },
-                        label: 'أخصائي',
-                        prefixIcon: Icons.cable),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    defaultFormField(
                         controller: emailController,
                         type: TextInputType.emailAddress,
                         validate: (String? value) {
@@ -85,29 +71,6 @@ class RegisterAsDoctor extends StatelessWidget {
                         },
                         label: 'رقم الهاتف',
                         prefixIcon: Icons.phone),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    defaultFormField(
-                        controller: experienceController,
-                        type: TextInputType.number,
-                        validate: (String? value) {
-                          if (value!.isEmpty) return 'رجاءً عدد سنوات الخبرة';
-                        },
-                        label: 'عدد سنوات الخبرة',
-                        prefixIcon: Icons.explicit),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    defaultFormField(
-                        controller: addressController,
-                        type: TextInputType.streetAddress,
-                        validate: (String? value) {
-                          if (value!.isEmpty)
-                            return 'رجاءً ادخل العنوان بشكل صحيح';
-                        },
-                        label: 'العنوان',
-                        prefixIcon: Icons.location_pin),
                     SizedBox(
                       height: 20.0,
                     ),
@@ -138,7 +101,6 @@ class RegisterAsDoctor extends StatelessWidget {
                                 password: passwordController.text,
                                 name: nameController.text,
                                 phone: phoneController.text,
-                                address: addressController.text,
                               );
                             }
                           },
