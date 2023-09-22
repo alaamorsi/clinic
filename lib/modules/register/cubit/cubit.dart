@@ -26,9 +26,10 @@ class RegisterCubit extends Cubit<RegisterStates> {
     ).then((value)
     {
       DoctorCreate(name: name, email: email, phone: phone, uid: value.user!.uid);
-      if (state is RegisterSuccessState) {
+      if (state is CreateDoctorSuccessState) {
         showToast(text: 'تم التسجيل بنجاح', state: ToastStates.SUCCESS);
       }
+      emit(RegisterSuccessState(value.user!.uid));
     }
     ).catchError((error)
     {
@@ -82,9 +83,10 @@ class RegisterCubit extends Cubit<RegisterStates> {
     ).then((value)
     {
       PatientCreate(name: name, email: email, phone: phone, uid: value.user!.uid);
-      if (state is RegisterSuccessState) {
+      if (state is CreatePatientSuccessState) {
         showToast(text: 'تم التسجيل بنجاح', state: ToastStates.SUCCESS);
       }
+      emit(RegisterSuccessState(value.user!.uid));
     }
     ).catchError((error)
     {

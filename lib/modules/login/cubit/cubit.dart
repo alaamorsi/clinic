@@ -26,7 +26,6 @@ class LoginCubit extends Cubit<LoginStates> {
         {
           emit(LoginSuccessState(value.user!.uid));
         }
-      // emit(LoginSuccessState(value.user!.uid));
       if (state is LoginSuccessState) {
         showToast(text: 'تم تسجيل الدخول بنجاح', state: ToastStates.SUCCESS);
       }
