@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myclinic/modules/login/login_screen2.dart';
 import 'package:myclinic/modules/register/cubit/cubit.dart';
 import 'package:myclinic/modules/register/cubit/states.dart';
 import 'package:myclinic/shared/components/components.dart';
@@ -23,6 +25,10 @@ class RegisterAsDoctor extends StatelessWidget {
         listener: (context, state) {
           if (state is RegisterErrorState) {
             showToast(text: 'البريد الالكتروني او كلمة المرور غير صحيح', state: ToastStates.ERROR);
+          }
+          if(state is RegisterSuccessState){
+            FirebaseAuth.instance.currentUser!.sendEmailVerification();
+            navigateTo(context, LoginScreen2());
           }
         },
         builder: (context, state) {

@@ -21,10 +21,13 @@ class LoginScreen2 extends StatelessWidget {
           if (state is LoginErrorState) {
             showToast(text: 'البريد الالكتروني او كلمة المرور غير صحيح', state: ToastStates.ERROR);
           }
-          if (state is LoginSuccessState)
+          if (state is LoginSuccessState && FirebaseAuth.instance.currentUser!.emailVerified)
             {
 
             }
+          if(state is LoginSuccessState && !FirebaseAuth.instance.currentUser!.emailVerified){
+            showToast(text: 'قم بتأكيد البريد الألكتروني', state: ToastStates.ERROR);
+          }
         },
         builder: (context, state) {
           return Scaffold(
@@ -82,7 +85,6 @@ class LoginScreen2 extends StatelessWidget {
                                 email: emailController.text,
                                 password: passwordController.text,
                               );
-                              FirebaseAuth.instance.currentUser!.sendEmailVerification();
                             }
                           },
                           text: 'تسجيل الدخول',
