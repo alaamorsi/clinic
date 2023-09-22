@@ -44,6 +44,7 @@ class RegisterAsDoctor extends StatelessWidget {
                         validate: (String? value) {
                           if (value!.isEmpty)
                             return 'رجاءً ادخل الأسم بشكل صحيح';
+                          return null;
                         },
                         label: 'الأسم',
                         prefixIcon: Icons.person),
@@ -56,6 +57,7 @@ class RegisterAsDoctor extends StatelessWidget {
                         validate: (String? value) {
                           if (value!.isEmpty)
                             return 'رجاءً ادخل البريد الالكتروني الصحيح';
+                          return null;
                         },
                         label: 'البريد الألكتروني',
                         prefixIcon: Icons.email),
@@ -68,6 +70,7 @@ class RegisterAsDoctor extends StatelessWidget {
                         validate: (String? value) {
                           if (value!.isEmpty)
                             return 'رجاءً ادخل رقم الهاتف بشكل صحيح';
+                          return null;
                         },
                         label: 'رقم الهاتف',
                         prefixIcon: Icons.phone),
@@ -80,6 +83,7 @@ class RegisterAsDoctor extends StatelessWidget {
                         validate: (String? value) {
                           if (value!.isEmpty)
                             return 'رجاءً ادخل الباسورد الصحيح';
+                          return null;
                         },
                         suffixIcon: RegisterCubit.get(context).suffixIcon,
                         label: 'كلمة المرور',

@@ -44,6 +44,7 @@ class LoginScreen2 extends StatelessWidget {
                           if (value!.isEmpty) {
                             return 'رجاءً ادخل البريد الالكتروني الصحيح';
                           }
+                          return null;
                         },
                         label: 'البريد الالكتروني',
                         prefixIcon: Icons.email_outlined),
@@ -57,6 +58,7 @@ class LoginScreen2 extends StatelessWidget {
                         if (value!.isEmpty) {
                           return 'رجاءً ادخل كلمة المرور الصحيحة';
                         }
+                        return null;
                       },
                       suffixIcon: LoginCubit.get(context).suffixIcon,
                       label: 'كلمة المرور',
