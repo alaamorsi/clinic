@@ -1,4 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myclinic/modules/login/cubit/cubit.dart';
@@ -20,6 +21,10 @@ class LoginScreen2 extends StatelessWidget {
           if (state is LoginErrorState) {
             showToast(text: 'البريد الالكتروني او كلمة المرور غير صحيح', state: ToastStates.ERROR);
           }
+          if (state is LoginSuccessState)
+            {
+
+            }
         },
         builder: (context, state) {
           return Scaffold(
@@ -75,6 +80,7 @@ class LoginScreen2 extends StatelessWidget {
                                 email: emailController.text,
                                 password: passwordController.text,
                               );
+                              FirebaseAuth.instance.currentUser!.sendEmailVerification();
                             }
                           },
                           text: 'تسجيل الدخول',

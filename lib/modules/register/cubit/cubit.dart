@@ -110,11 +110,11 @@ class RegisterCubit extends Cubit<RegisterStates> {
       address: '',
     );
 
-    FirebaseFirestore.instance.collection('doctors').doc(uid).set(model.toMap())
+    FirebaseFirestore.instance.collection('patient').doc(uid).set(model.toMap())
         .then((value){
-      emit(CreateDoctorSuccessState());
+      emit(CreatePatientSuccessState());
     }).catchError((error){
-      emit(CreateDoctorErrorState(error));
+      emit(CreatePatientErrorState(error));
     });
   }
 

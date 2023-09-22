@@ -52,6 +52,7 @@ class RegisterAsPatient extends StatelessWidget {
                           validate: (String? value) {if (value!.isEmpty) {return 'رجاءً ادخل رقم الهاتف بشكل صحيح';}
                           return null;},
                           label: 'رقم الهاتف', prefixIcon: Icons.phone),
+                      SizedBox(height: 20.0,),
                       defaultFormField(
                           controller: passwordController, type: TextInputType.text,
                           validate: (String? value) {if (value!.isEmpty) {return 'رجاءً ادخل الباسورد الصحيح';}
