@@ -6,7 +6,7 @@ class DoctorModel {
   late String experience;
   late String workDays;
   late String workHours;
-  late String kPrice;
+  late String dPrice;
   late String rPrice;
   late String uid;
   late String image;
@@ -23,7 +23,7 @@ class DoctorModel {
     required this.image,
     required this.address,
     required this.isEmailVerified,
-    required this.kPrice,
+    required this.dPrice,
     required this.rPrice,
     required this.workDays,
     required this.workHours
@@ -41,7 +41,7 @@ class DoctorModel {
     experience=json['experience'];
     workHours=json['workHours'];
     workDays=json['workDays'];
-    kPrice=json['kPrice'];
+    dPrice=json['kPrice'];
     rPrice=json['rPrice'];
     isEmailVerified=json['isEmailVerified'];
   }
@@ -59,7 +59,7 @@ class DoctorModel {
       'experience':experience,
       'workDays':workDays,
       'workHours':workHours,
-      'kPrice':kPrice,
+      'dPrice':dPrice,
       'rPrice':rPrice,
       'isEmailVerified':isEmailVerified,
     };

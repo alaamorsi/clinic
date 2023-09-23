@@ -1,11 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myclinic/modules/register/cubit/cubit.dart';
 import 'package:myclinic/modules/register/cubit/states.dart';
 import 'package:myclinic/shared/components/components.dart';
-
-import '../login/login_screen2.dart';
 
 // ignore: must_be_immutable
 class RegisterAsPatient extends StatelessWidget {
@@ -25,10 +22,6 @@ class RegisterAsPatient extends StatelessWidget {
         listener: (context,state) {
           if (state is RegisterErrorState) {
             showToast(text: 'البريد الالكتروني او كلمة المرور غير صحيح', state: ToastStates.ERROR);
-          }
-          if(state is RegisterSuccessState){
-            FirebaseAuth.instance.currentUser!.sendEmailVerification();
-            navigateTo(context, LoginScreen2());
           }
         },
         builder: (context,state) {
@@ -59,7 +52,6 @@ class RegisterAsPatient extends StatelessWidget {
                           validate: (String? value) {if (value!.isEmpty) {return 'رجاءً ادخل رقم الهاتف بشكل صحيح';}
                           return null;},
                           label: 'رقم الهاتف', prefixIcon: Icons.phone),
-                      SizedBox(height: 20.0,),
                       defaultFormField(
                           controller: passwordController, type: TextInputType.text,
                           validate: (String? value) {if (value!.isEmpty) {return 'رجاءً ادخل الباسورد الصحيح';}

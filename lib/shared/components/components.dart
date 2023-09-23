@@ -5,14 +5,14 @@ import 'package:myclinic/modules/doctor_modules/notifications.dart';
 import 'package:myclinic/modules/patient_modules/notifications.dart';
 
 Color defaultColor = Color.fromRGBO(14, 213, 213, 15);
-double iconSize = 25;
+double iconSize = 30;
 
 //used for all buttons in login
 Widget firstButton({
   double width = double.infinity,
-  double height = 50,
+  double height = 60,
   bool isUpperCase = true,
-  double radius = 20.0,
+  double radius = 10.0,
   required function,
   required String text,
 }) =>
@@ -23,7 +23,7 @@ Widget firstButton({
         onPressed: function,
         child: Text(
           isUpperCase ? text.toUpperCase() : text,
-          style: TextStyle(color: Colors.white, fontSize: 20.0),
+          style: TextStyle(color: Colors.white, fontSize: 25),
         ),
       ),
       decoration: BoxDecoration(
@@ -75,7 +75,7 @@ PreferredSizeWidget appBarWithArrowBack({
   leading: IconButton(onPressed: (){
     Navigator.pop(context);
   }, icon: Icon(icon),iconSize:iconSize,color: Colors.black),
-  title: Text(title, style: TextStyle(color: Colors.black, fontSize: 26.0),),
+  title: Text(title, style: TextStyle(color: Colors.black, fontSize: 30.0),),
   centerTitle: true,
   elevation: 0.0,
   flexibleSpace: Container(
@@ -94,7 +94,6 @@ Widget defaultFormField({
   Function(String val)? onChanged,
   bool isPassword = false,
   Color backGroundColor = const Color.fromRGBO(14, 213, 213, 15),
-  Color color = Colors.white,
   required String? Function(String? val)? validate,
   required String label,
   required IconData prefixIcon,
@@ -102,35 +101,44 @@ Widget defaultFormField({
   void Function()? suffixPressed,
   bool isClickable = true,
 }) =>
-    TextFormField(
-      controller: controller,
-      keyboardType: type,
-      obscureText: isPassword,
-      enabled: isClickable,
-      cursorColor: backGroundColor,
-      textAlign: TextAlign.end,
-      onFieldSubmitted: onSubmit,
-      onChanged: onChanged,
-      validator: validate,
-      style: TextStyle(fontSize: 20,color: color),
-      decoration: InputDecoration(
-          hintText: label,
-          hintStyle: TextStyle(color: color , fontSize: 20),
-          prefixIcon: Icon(
-            prefixIcon,
-            color: color,
-            size: iconSize,
-          ),
-          suffixIcon: suffixIcon != null
-              ? IconButton(
-            onPressed: suffixPressed,
-            icon: Icon(
-              suffixIcon,color: color,
+    Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: backGroundColor,
+        border: Border(
+            top: BorderSide(color: Colors.black),
+            bottom: BorderSide(color: Colors.black),
+            right: BorderSide(color: Colors.black),
+            left: BorderSide(color: Colors.black)),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: TextFormField(
+        controller: controller,
+        keyboardType: type,
+        obscureText: isPassword,
+        enabled: isClickable,
+        cursorColor: Colors.white,
+        textAlign: TextAlign.end,
+        onFieldSubmitted: onSubmit,
+        onChanged: onChanged,
+        validator: validate,
+        decoration: InputDecoration(
+            hintText: label,
+            hintStyle: TextStyle(color: Colors.white, fontSize: 25),
+            prefixIcon: Icon(
+              prefixIcon,
+              color: Colors.white,
+              size: 40,
             ),
-          ) : null,
-        filled: true,
-        fillColor: backGroundColor,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+            suffixIcon: suffixIcon != null
+                ? IconButton(
+              onPressed: suffixPressed,
+              icon: Icon(
+                suffixIcon,
+              ),
+            )
+                : null,
+            border: InputBorder.none),
       ),
     );
 

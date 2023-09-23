@@ -26,10 +26,9 @@ class RegisterCubit extends Cubit<RegisterStates> {
     ).then((value)
     {
       DoctorCreate(name: name, email: email, phone: phone, uid: value.user!.uid);
-      if (state is CreateDoctorSuccessState) {
+      if (state is RegisterSuccessState) {
         showToast(text: 'تم التسجيل بنجاح', state: ToastStates.SUCCESS);
       }
-      emit(RegisterSuccessState(value.user!.uid));
     }
     ).catchError((error)
     {
@@ -83,10 +82,9 @@ class RegisterCubit extends Cubit<RegisterStates> {
     ).then((value)
     {
       PatientCreate(name: name, email: email, phone: phone, uid: value.user!.uid);
-      if (state is CreatePatientSuccessState) {
+      if (state is RegisterSuccessState) {
         showToast(text: 'تم التسجيل بنجاح', state: ToastStates.SUCCESS);
       }
-      emit(RegisterSuccessState(value.user!.uid));
     }
     ).catchError((error)
     {
@@ -112,11 +110,11 @@ class RegisterCubit extends Cubit<RegisterStates> {
       address: '',
     );
 
-    FirebaseFirestore.instance.collection('patient').doc(uid).set(model.toMap())
+    FirebaseFirestore.instance.collection('doctors').doc(uid).set(model.toMap())
         .then((value){
-      emit(CreatePatientSuccessState());
+      emit(CreateDoctorSuccessState());
     }).catchError((error){
-      emit(CreatePatientErrorState(error));
+      emit(CreateDoctorErrorState(error));
     });
   }
 
