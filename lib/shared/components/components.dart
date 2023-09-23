@@ -46,7 +46,7 @@ PreferredSizeWidget appBarWithIcon({
   navigateWidget = PatientNotificationsScreen,
 })
 =>AppBar(
-  title: Text(title, style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold, fontSize: 20.0),),
+  title: Text(title, style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold, fontSize: 28.0),),
   actions: [
     IconButton(
         onPressed: (){
@@ -75,7 +75,7 @@ PreferredSizeWidget appBarWithArrowBack({
   leading: IconButton(onPressed: (){
     Navigator.pop(context);
   }, icon: Icon(icon),iconSize:iconSize,color: Colors.black),
-  title: Text(title, style: TextStyle(color: Colors.black, fontSize: 20.0),),
+  title: Text(title, style: TextStyle(color: Colors.black, fontSize: 30.0),),
   centerTitle: true,
   elevation: 0.0,
   flexibleSpace: Container(

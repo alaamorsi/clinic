@@ -22,7 +22,10 @@ class LoginCubit extends Cubit<LoginStates> {
         .then((value) {
       print(value.user?.email);
       print(value.user?.uid);
-      emit(LoginSuccessState(value.user!.uid));
+      if(FirebaseAuth.instance.currentUser!.emailVerified)
+        {
+          emit(LoginSuccessState(value.user!.uid));
+        }
       if (state is LoginSuccessState) {
         showToast(text: 'تم تسجيل الدخول بنجاح', state: ToastStates.SUCCESS);
       }

@@ -1,4 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myclinic/modules/login/cubit/cubit.dart';
@@ -20,6 +21,13 @@ class LoginScreen2 extends StatelessWidget {
           if (state is LoginErrorState) {
             showToast(text: 'البريد الالكتروني او كلمة المرور غير صحيح', state: ToastStates.ERROR);
           }
+          if (state is LoginSuccessState && FirebaseAuth.instance.currentUser!.emailVerified)
+            {
+
+            }
+          if(!FirebaseAuth.instance.currentUser!.emailVerified){
+            showToast(text: 'قم بتأكيد البريد الألكتروني', state: ToastStates.ERROR);
+          }
         },
         builder: (context, state) {
           return Scaffold(
@@ -39,6 +47,7 @@ class LoginScreen2 extends StatelessWidget {
                           if (value!.isEmpty) {
                             return 'رجاءً ادخل البريد الالكتروني الصحيح';
                           }
+                          return null;
                         },
                         label: 'البريد الالكتروني',
                         prefixIcon: Icons.email_outlined),
@@ -52,6 +61,7 @@ class LoginScreen2 extends StatelessWidget {
                         if (value!.isEmpty) {
                           return 'رجاءً ادخل كلمة المرور الصحيحة';
                         }
+                        return null;
                       },
                       suffixIcon: LoginCubit.get(context).suffixIcon,
                       label: 'كلمة المرور',

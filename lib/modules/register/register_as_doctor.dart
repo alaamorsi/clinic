@@ -1,10 +1,8 @@
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myclinic/modules/register/cubit/cubit.dart';
 import 'package:myclinic/modules/register/cubit/states.dart';
 import 'package:myclinic/shared/components/components.dart';
-
 
 // ignore: must_be_immutable
 class RegisterAsDoctor extends StatelessWidget {
@@ -24,9 +22,7 @@ class RegisterAsDoctor extends StatelessWidget {
       child: BlocConsumer<RegisterCubit, RegisterStates>(
         listener: (context, state) {
           if (state is RegisterErrorState) {
-            showToast(
-                text: 'البريد الالكتروني او كلمة المرور غير صحيح',
-                state: ToastStates.ERROR);
+            showToast(text: 'البريد الالكتروني او كلمة المرور غير صحيح', state: ToastStates.ERROR);
           }
         },
         builder: (context, state) {
@@ -97,9 +93,7 @@ class RegisterAsDoctor extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 60.0),
-                      child: ConditionalBuilder(
-                        condition: state is! RegisterLoadingState,
-                        builder: (context) => firstButton(
+                      child: firstButton(
                           function: () {
                             if (formKey.currentState!.validate()) {
                               RegisterCubit.get(context).DoctorRegister(
@@ -110,12 +104,7 @@ class RegisterAsDoctor extends StatelessWidget {
                               );
                             }
                           },
-                          text: 'انشاء الحساب',
-                          isUpperCase: true,
-                        ),
-                        fallback: (context) =>
-                            Center(child: CircularProgressIndicator()),
-                      ),
+                          text: 'انشاء الحساب'),
                     ),
                   ]),
                 ),

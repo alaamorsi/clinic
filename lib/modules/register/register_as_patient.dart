@@ -1,4 +1,3 @@
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myclinic/modules/register/cubit/cubit.dart';
@@ -7,6 +6,7 @@ import 'package:myclinic/shared/components/components.dart';
 
 // ignore: must_be_immutable
 class RegisterAsPatient extends StatelessWidget {
+
   var formKey = GlobalKey<FormState>();
   var nameController = TextEditingController();
   var emailController = TextEditingController();
@@ -17,21 +17,17 @@ class RegisterAsPatient extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (BuildContext context) => RegisterCubit(),
-        child: BlocConsumer<RegisterCubit, RegisterStates>(
-            listener: (context, state) {
+      create: (BuildContext context )=> RegisterCubit(),
+      child: BlocConsumer<RegisterCubit,RegisterStates>(
+        listener: (context,state) {
           if (state is RegisterErrorState) {
-            showToast(
-                text: 'البريد الالكتروني او كلمة المرور غير صحيح',
-                state: ToastStates.ERROR);
+            showToast(text: 'البريد الالكتروني او كلمة المرور غير صحيح', state: ToastStates.ERROR);
           }
-        }, builder: (context, state) {
+        },
+        builder: (context,state) {
           return Scaffold(
             backgroundColor: Colors.white,
-            appBar: appBarWithArrowBack(
-              context: context,
-              title: 'انشأ حساب مريض او زائر ',
-            ),
+            appBar: appBarWithArrowBack(context: context,title: 'انشأ حساب مريض او زائر ',),
             body: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Form(
@@ -40,88 +36,46 @@ class RegisterAsPatient extends StatelessWidget {
                   child: Column(
                     children: [
                       defaultFormField(
-                          controller: nameController,
-                          type: TextInputType.name,
-                          validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return 'رجاءً ادخل الأسم بشكل صحيح';
-                            }
-                            return null;
-                          },
-                          label: 'الأسم',
-                          prefixIcon: Icons.person),
-                      SizedBox(
-                        height: 20.0,
-                      ),
+                          controller: nameController, type: TextInputType.name,
+                          validate: (String? value) {if (value!.isEmpty) {return 'رجاءً ادخل الأسم بشكل صحيح';}
+                          return null;},
+                          label: 'الأسم', prefixIcon: Icons.person),
+                      SizedBox(height: 20.0,),
                       defaultFormField(
-                          controller: emailController,
-                          type: TextInputType.emailAddress,
-                          validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return 'رجاءً ادخل البريد الالكتروني الصحيح';
-                            }
-                            return null;
-                          },
-                          label: 'البريد الألكتروني',
-                          prefixIcon: Icons.email),
-                      SizedBox(
-                        height: 20.0,
-                      ),
+                          controller: emailController, type: TextInputType.emailAddress,
+                          validate: (String? value) {if (value!.isEmpty) {return 'رجاءً ادخل البريد الالكتروني الصحيح';}
+                          return null;},
+                          label: 'البريد الألكتروني', prefixIcon: Icons.email),
+                      SizedBox(height: 20.0,),
                       defaultFormField(
-                          controller: phoneController,
-                          type: TextInputType.number,
-                          validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return 'رجاءً ادخل رقم الهاتف بشكل صحيح';
-                            }
-                            return null;
-                          },
-                          label: 'رقم الهاتف',
-                          prefixIcon: Icons.phone),
-                      SizedBox(
-                        height: 20.0,
-                      ),
+                          controller: phoneController, type: TextInputType.number,
+                          validate: (String? value) {if (value!.isEmpty) {return 'رجاءً ادخل رقم الهاتف بشكل صحيح';}
+                          return null;},
+                          label: 'رقم الهاتف', prefixIcon: Icons.phone),
                       defaultFormField(
-                          controller: passwordController,
-                          type: TextInputType.text,
-                          validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return 'رجاءً ادخل الباسورد الصحيح';
-                            }
-                            return null;
-                          },
+                          controller: passwordController, type: TextInputType.text,
+                          validate: (String? value) {if (value!.isEmpty) {return 'رجاءً ادخل الباسورد الصحيح';}
+                          return null;},
                           suffixIcon: RegisterCubit.get(context).suffixIcon,
                           label: 'كلمة المرور',
                           prefixIcon: Icons.lock_outline,
                           isPassword: RegisterCubit.get(context).isPassword,
                           suffixPressed: () {
-                            RegisterCubit.get(context)
-                                .changePasswordVisibility();
+                            RegisterCubit.get(context).changePasswordVisibility();
                           }),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      SizedBox(height: 20,),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 60.0),
-                        child: ConditionalBuilder(
-                          condition: state is! RegisterLoadingState,
-                          builder: (context) => firstButton(
-                            function: () {
-                              if (formKey.currentState!.validate()) {
-                                RegisterCubit.get(context).PatientRegister(
-                                  email: emailController.text,
-                                  password: passwordController.text,
-                                  name: nameController.text,
-                                  phone: phoneController.text,
-                                );
-                              }
-                            },
-                            text: 'انشاء الحساب',
-                            isUpperCase: true,
-                          ),
-                          fallback: (context) =>
-                              Center(child: CircularProgressIndicator()),
-                        ),
+                        child: firstButton(function: (){
+                          if (formKey.currentState!.validate()) {
+                            RegisterCubit.get(context).PatientRegister(
+                              email: emailController.text,
+                              password: passwordController.text,
+                              name: nameController.text,
+                              phone: phoneController.text,
+                            );
+                          }
+                        }, text: 'انشاء الحساب'),
                       ),
                     ],
                   ),
@@ -129,6 +83,8 @@ class RegisterAsPatient extends StatelessWidget {
               ),
             ),
           );
-        }));
+        }
+      )
+    );
   }
 }
