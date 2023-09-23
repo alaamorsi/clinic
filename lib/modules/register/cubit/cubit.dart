@@ -54,7 +54,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
       address: '',
       experience: '',
       specialty: '',
-      kPrice: '',
+      dPrice: '',
       rPrice: '',
       workDays: '',
       workHours: '',

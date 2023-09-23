@@ -63,6 +63,13 @@ class MyApp extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           return MaterialApp(
+            theme: ThemeData(
+                bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                  selectedItemColor: defaultColor,
+                  elevation: 20.0,
+                  unselectedItemColor: Colors.grey,
+                  type: BottomNavigationBarType.fixed,
+                )),
             debugShowCheckedModeBanner: false,
             home: PatientLayout(),
           );

@@ -27,7 +27,7 @@ class LoginScreen2 extends StatelessWidget {
           if (state is LoginSuccessState && FirebaseAuth.instance.currentUser!.emailVerified)
             {
               CacheHelper.saveData(
-                key: 'uid',
+                key: 'uId',
                 value: state.uId,
               )!.then((value) {
                 navigateAndFinish(context,DoctorLayout());
