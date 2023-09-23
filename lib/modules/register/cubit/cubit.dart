@@ -6,35 +6,34 @@ import 'package:myclinic/models/doctor_model.dart';
 import 'package:myclinic/models/patient_model.dart';
 import 'package:myclinic/modules/register/cubit/states.dart';
 import 'package:myclinic/shared/components/components.dart';
+import 'package:myclinic/shared/components/constant.dart';
 
 class RegisterCubit extends Cubit<RegisterStates> {
   RegisterCubit() : super(RegisterInitialState());
 
   static RegisterCubit get(context) => BlocProvider.of(context);
 
+
   void DoctorRegister({
     required String name,
     required String email,
     required String password,
     required String phone,
-  })
-  {
+  }) {
     emit(RegisterLoadingState());
-    FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-    ).then((value)
-    {
-      DoctorCreate(name: name, email: email, phone: phone, uid: value.user!.uid);
-      if (state is RegisterSuccessState) {
-        showToast(text: 'تم التسجيل بنجاح', state: ToastStates.SUCCESS);
-      }
-    }
-    ).catchError((error)
-    {
+    FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    )
+        .then((value) {
+      emit(RegisterSuccessState());
+      DoctorCreate(
+          name: name, email: email, phone: phone, uid: value.user!.uid);
+      showToast(text: 'تم التسجيل بنجاح', state: ToastStates.SUCCESS);
+    }).catchError((error) {
       emit(RegisterErrorState(error.toString()));
-    }
-    );
+    });
   }
 
   void DoctorCreate({
@@ -42,28 +41,32 @@ class RegisterCubit extends Cubit<RegisterStates> {
     required String email,
     required String phone,
     required String uid,
-  })
-  {
+  }) {
+    doctorList.add(uid);
     DoctorModel model = DoctorModel(
       name: name,
       email: email,
       phone: phone,
       uid: uid,
       isEmailVerified: false,
-      image: 'https://www.shutterstock.com/image-photo/young-handsome-man-beard-wearing-600w-1768126784.jpg',
+      image:
+          'https://img.washingtonpost.com/rf/image_1484w/2010-2019/WashingtonPost/2013/07/12/Health-Environment-Science/Images/iStock_000024597659Large.jpg',
       address: '',
       experience: '',
       specialty: '',
-      kPrice: '',
+      dPrice: '',
       rPrice: '',
       workDays: '',
       workHours: '',
     );
 
-    FirebaseFirestore.instance.collection('doctors').doc(uid).set(model.toMap())
-        .then((value){
+    FirebaseFirestore.instance
+        .collection('doctors')
+        .doc(uid)
+        .set(model.toMap())
+        .then((value) {
       emit(CreateDoctorSuccessState());
-    }).catchError((error){
+    }).catchError((error) {
       emit(CreateDoctorErrorState(error));
     });
   }
@@ -73,24 +76,21 @@ class RegisterCubit extends Cubit<RegisterStates> {
     required String email,
     required String password,
     required String phone,
-  })
-  {
+  }) {
     emit(RegisterLoadingState());
-    FirebaseAuth.instance.createUserWithEmailAndPassword(
+    FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
       email: email,
       password: password,
-    ).then((value)
-    {
-      PatientCreate(name: name, email: email, phone: phone, uid: value.user!.uid);
-      if (state is RegisterSuccessState) {
-        showToast(text: 'تم التسجيل بنجاح', state: ToastStates.SUCCESS);
-      }
-    }
-    ).catchError((error)
-    {
+    )
+        .then((value) {
+      emit(RegisterSuccessState());
+      PatientCreate(
+          name: name, email: email, phone: phone, uid: value.user!.uid);
+      showToast(text: 'تم التسجيل بنجاح', state: ToastStates.SUCCESS);
+    }).catchError((error) {
       emit(RegisterErrorState(error.toString()));
-    }
-    );
+    });
   }
 
   void PatientCreate({
@@ -98,33 +98,37 @@ class RegisterCubit extends Cubit<RegisterStates> {
     required String email,
     required String phone,
     required String uid,
-  })
-  {
+  }) {
+    patientList.add(uid);
     PatientModel model = PatientModel(
       name: name,
       email: email,
       phone: phone,
       uid: uid,
       isEmailVerified: false,
-      image: 'https://www.shutterstock.com/image-photo/young-handsome-man-beard-wearing-600w-1768126784.jpg',
+      image:
+          'https://i0.wp.com/rafaelfreireconsultor.com.br/wp-content/uploads/2016/11/maleprofilecircle2.jpg',
       address: '',
     );
 
-    FirebaseFirestore.instance.collection('doctors').doc(uid).set(model.toMap())
-        .then((value){
-      emit(CreateDoctorSuccessState());
-    }).catchError((error){
-      emit(CreateDoctorErrorState(error));
+    FirebaseFirestore.instance
+        .collection('patient')
+        .doc(uid)
+        .set(model.toMap())
+        .then((value) {
+      emit(CreatePatientSuccessState());
+    }).catchError((error) {
+      emit(CreatePatientErrorState(error));
     });
   }
 
   IconData suffixIcon = Icons.visibility_outlined;
   bool isPassword = true;
 
-  void changePasswordVisibility()
-  {
+  void changePasswordVisibility() {
     isPassword = !isPassword;
-    suffixIcon = isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined ;
+    suffixIcon =
+        isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
     emit(RegisterChangePasswordVisibilityState());
   }
 }

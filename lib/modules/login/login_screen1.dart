@@ -29,12 +29,12 @@ class LoginScreen extends StatelessWidget {
               decoration: BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('assets/clinic.jpg'),
-                      fit: BoxFit.cover)),
+                      fit: BoxFit.fitHeight)),
               child:  Container(
                 width: double.infinity,
                 height: 300.0,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Colors.white54,
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(50.0),
                     topLeft: Radius.circular(50.0),

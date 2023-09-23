@@ -3,14 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myclinic/firebase_options.dart';
 import 'package:myclinic/layout/doctor_layout/cubit/cubit.dart';
+import 'package:myclinic/layout/doctor_layout/doctor_layout.dart';
 import 'package:myclinic/layout/patient_layout/cubit/cubit.dart';
+import 'package:myclinic/layout/patient_layout/patient_layoyt.dart';
 import 'package:myclinic/modules/login/login_screen1.dart';
 import 'package:myclinic/shared/components/bloc_observer.dart';
 import 'package:myclinic/shared/components/cache_helper.dart';
+import 'package:myclinic/shared/components/components.dart';
+import 'package:myclinic/shared/components/constant.dart';
 import 'package:myclinic/shared/components/cubit/cubit.dart';
 import 'package:myclinic/shared/components/cubit/states.dart';
 
-void main() async{
+void main(context) async {
   // بيتأكد ان كل حاجه هنا في الميثود خلصت و بعدين يتفح الابلكيشن
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -21,49 +25,46 @@ void main() async{
   Bloc.observer = MyBlocObserver();
   await CacheHelper.init();
 
-  // uId = CacheHelper.getData(key: 'uId');
-  // if(uId != null)
-  // {
-  //   widget = Layout();
-  // } else {
-  //   widget = LoginScreen();
-  // }
-  // Widget? widget;
+  uId = CacheHelper.getData(key: 'uId');
+  Widget? widget = LoginScreen();
 
+  if (uId != null) {
+    doctorList.forEach((element) {
+      if (uId == element) {
+        widget = DoctorLayout();
+      }
+    });
+    patientList.forEach((element) {
+      if (uId == element) {
+        widget = PatientLayout();
+      }
+    });
+  }
 
-
-
-
-
-
-
-
-  runApp( MyApp(
-    // startWidget: widget,
+  runApp(MyApp(
+    startWidget: widget,
   ));
 }
 
 class MyApp extends StatelessWidget {
+  final Widget? startWidget;
 
-  // final Widget? startWidget;
+  MyApp({this.startWidget});
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (BuildContext context) => AppCubit()),
-        BlocProvider(
-            create: (BuildContext context) => DoctorCubit()),
-        BlocProvider(
-            create: (BuildContext context) => PatientCubit()),
+        BlocProvider(create: (BuildContext context) => AppCubit()),
+        BlocProvider(create: (BuildContext context) => DoctorCubit()),
+        BlocProvider(create: (BuildContext context) => PatientCubit()),
       ],
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: LoginScreen(),
+            home: PatientLayout(),
           );
         },
       ),
