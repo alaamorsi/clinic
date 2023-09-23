@@ -29,16 +29,8 @@ void main(context) async {
   Widget? widget = LoginScreen();
 
   if (uId != null) {
-    doctorList.forEach((element) {
-      if (uId == element) {
-        widget = DoctorLayout();
-      }
-    });
-    patientList.forEach((element) {
-      if (uId == element) {
-        widget = PatientLayout();
-      }
-    });
+    if (user == 'doctor') widget = DoctorLayout();
+    else if (user == 'patient') widget = PatientLayout();
   }
 
   runApp(MyApp(
@@ -71,7 +63,7 @@ class MyApp extends StatelessWidget {
                   type: BottomNavigationBarType.fixed,
                 )),
             debugShowCheckedModeBanner: false,
-            home: PatientLayout(),
+            home: startWidget,
           );
         },
       ),

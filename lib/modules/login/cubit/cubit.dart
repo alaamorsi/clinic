@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myclinic/modules/login/cubit/states.dart';
 import 'package:myclinic/shared/components/components.dart';
+
+import '../../../shared/components/constant.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
   LoginCubit() : super(LoginInitialState());
@@ -24,6 +27,7 @@ class LoginCubit extends Cubit<LoginStates> {
       print(value.user?.uid);
       if(FirebaseAuth.instance.currentUser!.emailVerified)
         {
+          checkUser(value.user!.uid);
           emit(LoginSuccessState(value.user!.uid));
         }
       if (state is LoginSuccessState) {
@@ -43,5 +47,30 @@ class LoginCubit extends Cubit<LoginStates> {
         isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
 
     emit(ChangePasswordVisibilityState());
+  }
+
+  //to check user is doctor or patient
+  void checkUser(String uId)
+  {
+    emit(GetUserLoadingState());
+    FirebaseFirestore.instance.collection('doctors').snapshots().listen((event) {
+      event.docs.forEach((doctor)
+      {
+        if (doctor.data()['uId'] != uId){
+          user = 'doctor';
+        }
+      });
+      emit(GetUserSuccessState());
+    });
+
+    FirebaseFirestore.instance.collection('patients').snapshots().listen((event) {
+      event.docs.forEach((patient)
+      {
+        if (patient.data()['uId'] != uId){
+          user = 'patient';
+        }
+      });
+      emit(GetUserSuccessState());
+    });
   }
 }
