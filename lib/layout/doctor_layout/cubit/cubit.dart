@@ -10,18 +10,18 @@ import 'package:myclinic/modules/doctor_modules/profile.dart';
 import 'package:myclinic/modules/doctor_modules/reservations.dart';
 import 'package:myclinic/modules/doctor_modules/reserve_now.dart';
 import 'package:myclinic/modules/doctor_modules/search.dart';
+import '../../../shared/components/constant.dart';
 
 class DoctorCubit extends Cubit<DoctorStates> {
   DoctorCubit():super(DoctorInitialStates());
   static DoctorCubit get(context)=>BlocProvider.of(context);
 
-  String? uid;
 
   late DoctorModel userModel;
   void getDoctorDate()
   {
     emit(GetDoctorDataLoadingState());
-    FirebaseFirestore.instance.collection('doctors').doc(uid)
+    FirebaseFirestore.instance.collection('doctors').doc(uId)
         .get()
         .then((value){
       userModel = DoctorModel.fromJson(value.data());
