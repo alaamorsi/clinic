@@ -7,6 +7,7 @@ import 'package:myclinic/layout/patient_layout/cubit/cubit.dart';
 import 'package:myclinic/modules/login/login_screen1.dart';
 import 'package:myclinic/shared/components/bloc_observer.dart';
 import 'package:myclinic/shared/components/cache_helper.dart';
+import 'package:myclinic/shared/components/components.dart';
 import 'package:myclinic/shared/components/cubit/cubit.dart';
 import 'package:myclinic/shared/components/cubit/states.dart';
 
@@ -62,6 +63,12 @@ class MyApp extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           return MaterialApp(
+            theme: ThemeData(
+              bottomNavigationBarTheme: BottomNavigationBarThemeData(
+              selectedItemColor: defaultColor,
+              elevation: 20.0,
+              unselectedItemColor: Colors.grey,
+            ),),
             debugShowCheckedModeBanner: false,
             home: LoginScreen(),
           );

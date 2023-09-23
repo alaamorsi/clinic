@@ -2,9 +2,12 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myclinic/layout/doctor_layout/doctor_layout.dart';
 import 'package:myclinic/modules/login/cubit/cubit.dart';
 import 'package:myclinic/modules/login/cubit/states.dart';
 import 'package:myclinic/shared/components/components.dart';
+
+import '../../shared/components/cache_helper.dart';
 
 // ignore: must_be_immutable
 class LoginScreen2 extends StatelessWidget {
@@ -23,7 +26,12 @@ class LoginScreen2 extends StatelessWidget {
           }
           if (state is LoginSuccessState && FirebaseAuth.instance.currentUser!.emailVerified)
             {
-
+              CacheHelper.saveData(
+                key: 'uid',
+                value: state.uId,
+              )!.then((value) {
+                navigateAndFinish(context,DoctorLayout());
+              });
             }
           if(!FirebaseAuth.instance.currentUser!.emailVerified){
             showToast(text: 'قم بتأكيد البريد الألكتروني', state: ToastStates.ERROR);

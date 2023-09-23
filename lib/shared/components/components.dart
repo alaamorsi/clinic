@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:myclinic/modules/doctor_modules/notifications.dart';
 import 'package:myclinic/modules/patient_modules/notifications.dart';
 
 Color defaultColor = Color.fromRGBO(14, 213, 213, 15);
@@ -43,14 +44,14 @@ PreferredSizeWidget appBarWithIcon({
   required BuildContext context,
   required String title,
   IconData icon = Icons.notifications,
-  navigateWidget = PatientNotificationsScreen,
+  bool patient = true,
 })
 =>AppBar(
   title: Text(title, style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold, fontSize: 28.0),),
   actions: [
     IconButton(
         onPressed: (){
-          navigateTo(context, navigateWidget());
+          navigateTo(context, patient?PatientNotificationsScreen():DoctorNotificationsScreen());
         },
         icon: Icon(icon,color: Colors.grey,size: iconSize,)
     ),
@@ -69,7 +70,6 @@ PreferredSizeWidget appBarWithArrowBack({
   required BuildContext context,
   required String title,
   IconData icon = Icons.arrow_back,
-  navigateWidget = PatientNotificationsScreen,
 })
 =>AppBar(
   leading: IconButton(onPressed: (){
