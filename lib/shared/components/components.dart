@@ -45,45 +45,63 @@ PreferredSizeWidget appBarWithIcon({
   required String title,
   IconData icon = Icons.notifications,
   bool patient = true,
-})
-=>AppBar(
-  title: Text(title, style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold, fontSize: 28.0),),
-  actions: [
-    IconButton(
-        onPressed: (){
-          navigateTo(context, patient?PatientNotificationsScreen():DoctorNotificationsScreen());
-        },
-        icon: Icon(icon,color: Colors.grey,size: iconSize,)
-    ),
-  ],
-  centerTitle: true,
-  elevation: 5.0,
-  flexibleSpace: Container(
-    decoration: BoxDecoration(
-      color: Colors.white,
-    ),
-  ),
-);
+}) =>
+    AppBar(
+      title: Text(
+        title,
+        style: TextStyle(
+            color: Colors.black, fontWeight: FontWeight.bold, fontSize: 28.0),
+      ),
+      actions: [
+        IconButton(
+            onPressed: () {
+              navigateTo(
+                  context,
+                  patient
+                      ? PatientNotificationsScreen()
+                      : DoctorNotificationsScreen());
+            },
+            icon: Icon(
+              icon,
+              color: Colors.grey,
+              size: iconSize,
+            )),
+      ],
+      centerTitle: true,
+      elevation: 5.0,
+      flexibleSpace: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+        ),
+      ),
+    );
 
 ////////////////////////////////////////////
 PreferredSizeWidget appBarWithArrowBack({
   required BuildContext context,
   required String title,
   IconData icon = Icons.arrow_back,
-})
-=>AppBar(
-  leading: IconButton(onPressed: (){
-    Navigator.pop(context);
-  }, icon: Icon(icon),iconSize:iconSize,color: Colors.black),
-  title: Text(title, style: TextStyle(color: Colors.black, fontSize: 30.0),),
-  centerTitle: true,
-  elevation: 0.0,
-  flexibleSpace: Container(
-    decoration: BoxDecoration(
-      color: Colors.white,
-    ),
-  ),
-);
+}) =>
+    AppBar(
+      leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(icon),
+          iconSize: iconSize,
+          color: Colors.black),
+      title: Text(
+        title,
+        style: TextStyle(color: Colors.black, fontSize: 30.0),
+      ),
+      centerTitle: true,
+      elevation: 0.0,
+      flexibleSpace: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+        ),
+      ),
+    );
 
 /////////////////////////////////////////////////////
 //default text form field
@@ -132,11 +150,11 @@ Widget defaultFormField({
             ),
             suffixIcon: suffixIcon != null
                 ? IconButton(
-              onPressed: suffixPressed,
-              icon: Icon(
-                suffixIcon,
-              ),
-            )
+                    onPressed: suffixPressed,
+                    icon: Icon(
+                      suffixIcon,
+                    ),
+                  )
                 : null,
             border: InputBorder.none),
       ),
@@ -167,6 +185,7 @@ void navigateAndFinish(context, widget) => Navigator.pushAndRemoveUntil(
       ),
       (Route<dynamic> rout) => false,
     );
+
 void showToast({
   required String text,
   required ToastStates state,

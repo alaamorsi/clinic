@@ -11,3 +11,4 @@ class GetPatientDataErrorState extends PatientStates {
 
 }
 class ChangeBottomNavState extends PatientStates {}
+class ChangeTypeReservationState extends PatientStates {}

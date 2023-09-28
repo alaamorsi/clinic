@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myclinic/layout/patient_layout/cubit/states.dart';
 import 'package:myclinic/models/patient_model.dart';
 import 'package:myclinic/modules/patient/doctors_list_screen.dart';
+import 'package:myclinic/modules/patient/doctors_search_screen.dart';
 import 'package:myclinic/modules/patient/my_reservations_screen.dart';
 import 'package:myclinic/modules/patient/patient_profile_screen.dart';
 import 'package:myclinic/shared/components/constant.dart';
@@ -17,11 +18,13 @@ class PatientCubit extends Cubit<PatientStates> {
   int currentIndex = 0;
   List<Widget> screens = [
     DoctorsListScreen(),
+    DoctorsSearchScreen(),
     MyReservationsScreen(),
     PatientProfileScreen(),
   ];
   List<String> titles = [
     'الأطباء',
+    'البحث عن الأطباء',
     'حجوزاتي',
     'الصفحة الشخصية',
   ];
@@ -43,4 +46,12 @@ class PatientCubit extends Cubit<PatientStates> {
     });
   }
 
+  bool iskashf = true;
+
+  void isKashf(bool k)
+  {
+    iskashf = k;
+    print(iskashf);
+    emit(ChangeTypeReservationState());
+  }
 }
