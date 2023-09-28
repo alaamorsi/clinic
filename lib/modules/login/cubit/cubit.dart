@@ -56,7 +56,7 @@ class LoginCubit extends Cubit<LoginStates> {
     FirebaseFirestore.instance.collection('doctors').snapshots().listen((event) {
       event.docs.forEach((doctor)
       {
-        if (doctor.data()['uId'] != uId){
+        if (doctor.data()['uid'] != uId){
           user = 'doctor';
         }
       });
@@ -66,7 +66,7 @@ class LoginCubit extends Cubit<LoginStates> {
     FirebaseFirestore.instance.collection('patients').snapshots().listen((event) {
       event.docs.forEach((patient)
       {
-        if (patient.data()['uId'] != uId){
+        if (patient.data()['uid'] != uId){
           user = 'patient';
         }
       });

@@ -13,7 +13,7 @@ class DoctorLayout extends StatelessWidget {
       builder:(context,state){
         var cubit = DoctorCubit.get(context);
         return Scaffold(
-          appBar: appBarWithIcon(context: context, title: cubit.titles[cubit.currentIndex],patient: false),
+          appBar:appBarWithIcon(context: context, title: cubit.titles[cubit.currentIndex],patient: false),
           body: cubit.screens[cubit.currentIndex],
           bottomNavigationBar: BottomNavigationBar(
               currentIndex: cubit.currentIndex,
@@ -21,11 +21,14 @@ class DoctorLayout extends StatelessWidget {
                 cubit.changeBottomNav(index);
               },
               iconSize: 30.0,
+              unselectedFontSize: 16.0,
+              selectedFontSize: 17.0,
               items: [
-                BottomNavigationBarItem(icon: Icon(Icons.healing),label: ''),
-                BottomNavigationBarItem(icon: Icon(Icons.person_search),label: ''),
-                BottomNavigationBarItem(icon: Icon(Icons.list_alt),label: ''),
-                BottomNavigationBarItem(icon: Icon(Icons.account_circle),label: '')
+                BottomNavigationBarItem(icon: Icon(Icons.medical_information),label: 'الكشوفات'),
+                BottomNavigationBarItem(icon: Icon(Icons.medical_information_outlined),label: 'الاعادات'),
+                BottomNavigationBarItem(icon: Icon(Icons.person_search),label: 'البحث'),
+                BottomNavigationBarItem(icon: Icon(Icons.list_alt),label: 'احجز الأن'),
+                BottomNavigationBarItem(icon: Icon(Icons.account_circle),label: 'البروفايل')
               ]),
         );
       },

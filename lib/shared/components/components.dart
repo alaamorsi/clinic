@@ -140,6 +140,7 @@ Widget defaultFormField({
         onFieldSubmitted: onSubmit,
         onChanged: onChanged,
         validator: validate,
+        style: TextStyle(color: Colors.white,fontSize: 22),
         decoration: InputDecoration(
             hintText: label,
             hintStyle: TextStyle(color: Colors.white, fontSize: 25),
@@ -220,3 +221,105 @@ Color chooseToastColor(ToastStates state) {
 
   return color;
 }
+
+Widget dataLabel(String title,String data)
+=>Container(
+  height: 50.0,
+  child: Padding(
+    padding: const EdgeInsets.all(5.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Container(
+          constraints: BoxConstraints(maxWidth: 190.0),
+          child: Text(data,style: TextStyle(fontSize: 16,color: Colors.black),overflow:TextOverflow.ellipsis,),
+        ),
+        Text(' : $title',style: TextStyle(fontSize: 16,color: Colors.black)),
+      ]
+    ),
+  ),
+  decoration: BoxDecoration(
+    border: Border(
+        top: BorderSide(color: Colors.grey),
+        bottom: BorderSide(color: Colors.grey),
+        right: BorderSide(color: Colors.grey),
+        left: BorderSide(color: Colors.grey)),
+    borderRadius: BorderRadius.circular(5.0),
+  ),
+);
+
+Widget ReservedCard(String number,String name, String age)=>Container(
+  height: 150.0,width: double.infinity,
+  decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(10.0),
+      border: Border.all(color: Colors.grey)
+  ),
+  child: Padding(
+    padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 20.0),
+    child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Row(mainAxisAlignment: MainAxisAlignment.center, children:[
+            Spacer(),
+            dataLabel('رقم', '$number'),
+            Spacer()
+          ]),
+          SizedBox(height: 10.0,),
+          Row(mainAxisAlignment: MainAxisAlignment.end,children:[
+            dataLabel('العمر', '$age'),
+            SizedBox(width: 10.0,),
+            dataLabel('اسم المريض', '$name'),
+          ]
+          ),
+        ]
+    ),
+  ),
+);
+
+Widget label(String text)
+=>Container(
+  height: 50.0,
+  child: Padding(
+    padding: const EdgeInsets.all(5.0),
+    child: Text(text,style: TextStyle(fontSize: 16,color: Colors.black)),
+  ),
+  decoration: BoxDecoration(
+    border: Border(
+        top: BorderSide(color: Colors.grey),
+        bottom: BorderSide(color: Colors.grey),
+        right: BorderSide(color: Colors.grey),
+        left: BorderSide(color: Colors.grey)),
+    borderRadius: BorderRadius.circular(5.0),
+  ),
+);
+
+Widget formFieldWithoutIcons({
+  required TextEditingController controller,
+  required TextInputType type,
+  void Function(String)? onSubmit,
+  Function(String val)? onChanged,
+  Color backGroundColor = Colors.white,
+  required String? Function(String? val)? validate,
+  bool isClickable = true,
+}) => Container(
+      decoration: BoxDecoration(
+        color: backGroundColor,
+        border: Border(
+            top: BorderSide(color: Colors.black),
+            bottom: BorderSide(color: Colors.black),
+            right: BorderSide(color: Colors.black),
+            left: BorderSide(color: Colors.black)),
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: TextFormField(
+        controller: controller,
+        keyboardType: type,
+        enabled: isClickable,
+        cursorColor: Colors.white,
+        textAlign: TextAlign.end,
+        onFieldSubmitted: onSubmit,
+        onChanged: onChanged,
+        validator: validate,
+        style: TextStyle(color: Colors.white,fontSize: 22),
+        decoration: InputDecoration(border: InputBorder.none),),);

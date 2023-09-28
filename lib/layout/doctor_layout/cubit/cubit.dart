@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myclinic/layout/doctor_layout/cubit/states.dart';
 import 'package:myclinic/models/doctor_model.dart';
 import 'package:myclinic/modules/doctor_modules/profile.dart';
+import 'package:myclinic/modules/doctor_modules/re.dart';
 import 'package:myclinic/modules/doctor_modules/reservations.dart';
 import 'package:myclinic/modules/doctor_modules/reserve_now.dart';
 import 'package:myclinic/modules/doctor_modules/search.dart';
@@ -35,12 +36,14 @@ class DoctorCubit extends Cubit<DoctorStates> {
   int currentIndex = 0;
   List<Widget> screens =[
     ReservationsScreen(),
+    ReScreen(),
     SearchScreen(),
     ReserveNowScreen(),
     ProfileScreen(),
   ];
   List<String> titles=[
-    'الحجوزات',
+    'الكشوفات',
+    'الاعادات',
     'البحث',
     'احجز الأن',
     'الملف الشخصي',

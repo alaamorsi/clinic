@@ -60,10 +60,10 @@ class MyApp extends StatelessWidget {
                   selectedItemColor: defaultColor,
                   elevation: 20.0,
                   unselectedItemColor: Colors.grey,
-                  type: BottomNavigationBarType.fixed,
+                  type: BottomNavigationBarType.shifting,
                 )),
             debugShowCheckedModeBanner: false,
-            home: startWidget,
+            home: DoctorLayout(),
           );
         },
       ),
