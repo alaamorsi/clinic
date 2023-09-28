@@ -3,9 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myclinic/layout/doctor_layout/doctor_layout.dart';
+import 'package:myclinic/layout/patient_layout/patient_layoyt.dart';
 import 'package:myclinic/modules/login/cubit/cubit.dart';
 import 'package:myclinic/modules/login/cubit/states.dart';
 import 'package:myclinic/shared/components/components.dart';
+import 'package:myclinic/shared/components/constant.dart';
 
 import '../../shared/components/cache_helper.dart';
 
@@ -24,13 +26,16 @@ class LoginScreen2 extends StatelessWidget {
           if (state is LoginErrorState) {
             showToast(text: 'البريد الالكتروني او كلمة المرور غير صحيح', state: ToastStates.ERROR);
           }
-          if (state is LoginSuccessState && FirebaseAuth.instance.currentUser!.emailVerified)
+          if (state is LoginSuccessState)
             {
               CacheHelper.saveData(
                 key: 'uId',
                 value: state.uId,
               )!.then((value) {
-                navigateAndFinish(context,DoctorLayout());
+                CacheHelper.saveData(key: 'user', value: user)!.then((value) {
+                  if(user == 'patient') navigateAndFinish(context,PatientLayout());
+                  else if(user == 'doctor') navigateAndFinish(context,DoctorLayout());
+                });
               });
             }
           if(!FirebaseAuth.instance.currentUser!.emailVerified){
