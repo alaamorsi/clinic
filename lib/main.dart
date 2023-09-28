@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
                   type: BottomNavigationBarType.shifting,
                 )),
             debugShowCheckedModeBanner: false,
-            home: DoctorLayout(),
+            home: startWidget,
           );
         },
       ),
