@@ -281,8 +281,8 @@ Widget label(String text)
 =>Container(
   height: 50.0,
   child: Padding(
-    padding: const EdgeInsets.all(5.0),
-    child: Text(text,style: TextStyle(fontSize: 16,color: Colors.black)),
+    padding: const EdgeInsets.all(3.0),
+    child: Center(child: Text(text,style: TextStyle(fontSize: 18.0,color: Colors.black))),
   ),
   decoration: BoxDecoration(
     border: Border(
@@ -302,24 +302,51 @@ Widget formFieldWithoutIcons({
   Color backGroundColor = Colors.white,
   required String? Function(String? val)? validate,
   bool isClickable = true,
-}) => Container(
+}) => Container(constraints: BoxConstraints(maxWidth: 200.0),
       decoration: BoxDecoration(
         color: backGroundColor,
         border: Border(
-            top: BorderSide(color: Colors.black),
-            bottom: BorderSide(color: Colors.black),
-            right: BorderSide(color: Colors.black),
-            left: BorderSide(color: Colors.black)),
+            top: BorderSide(color: Colors.grey),
+            bottom: BorderSide(color: Colors.grey),
+            right: BorderSide(color: Colors.grey),
+            left: BorderSide(color: Colors.grey)),
         borderRadius: BorderRadius.circular(5),
       ),
       child: TextFormField(
         controller: controller,
         keyboardType: type,
         enabled: isClickable,
-        cursorColor: Colors.white,
+        cursorColor: Colors.black,
         textAlign: TextAlign.end,
         onFieldSubmitted: onSubmit,
         onChanged: onChanged,
         validator: validate,
-        style: TextStyle(color: Colors.white,fontSize: 22),
+        style: TextStyle(color: Colors.black,fontSize: 18.0),
         decoration: InputDecoration(border: InputBorder.none),),);
+
+Widget goodButton({
+  double height = 50,
+  bool isUpperCase = true,
+  double radius = 5.0,
+  void Function()? function,
+  required String text,
+  Color borderColor = Colors.grey,
+  Color backColor =Colors.white,
+}) =>
+    InkWell(
+      onTap: function,
+      child: Container(
+        height: height,
+        child: Center(
+          child: Text(text,style: TextStyle(color: Colors.black, fontSize: 18.0),
+          ),
+        ),
+        decoration: BoxDecoration(
+          border: Border(
+              top: BorderSide(color: borderColor), bottom: BorderSide(color: borderColor),
+              right: BorderSide(color: borderColor), left: BorderSide(color: borderColor)),
+          color: backColor,
+          borderRadius: BorderRadius.circular(radius),
+        ),
+      ),
+    );
