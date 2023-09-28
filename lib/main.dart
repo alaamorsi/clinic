@@ -26,6 +26,7 @@ void main(context) async {
   await CacheHelper.init();
 
   uId = CacheHelper.getData(key: 'uId');
+  user = CacheHelper.getData(key: 'user');
   Widget? widget = LoginScreen();
 
   if (uId != null) {

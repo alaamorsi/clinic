@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myclinic/modules/doctor_modules/notifications.dart';
-import 'package:myclinic/modules/patient_modules/notifications.dart';
+import 'package:myclinic/modules/patient/notifications.dart';
 
 Color defaultColor = Color.fromRGBO(14, 213, 213, 15);
 double iconSize = 30;

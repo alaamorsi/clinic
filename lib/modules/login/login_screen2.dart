@@ -7,8 +7,6 @@ import 'package:myclinic/layout/patient_layout/patient_layoyt.dart';
 import 'package:myclinic/modules/login/cubit/cubit.dart';
 import 'package:myclinic/modules/login/cubit/states.dart';
 import 'package:myclinic/shared/components/components.dart';
-import 'package:myclinic/shared/components/constant.dart';
-
 import '../../shared/components/cache_helper.dart';
 
 // ignore: must_be_immutable
@@ -31,12 +29,7 @@ class LoginScreen2 extends StatelessWidget {
               CacheHelper.saveData(
                 key: 'uId',
                 value: state.uId,
-              )!.then((value) {
-                CacheHelper.saveData(key: 'user', value: user)!.then((value) {
-                  if(user == 'patient') navigateAndFinish(context,PatientLayout());
-                  else if(user == 'doctor') navigateAndFinish(context,DoctorLayout());
-                });
-              });
+              );
             }
           if(!FirebaseAuth.instance.currentUser!.emailVerified){
             showToast(text: 'قم بتأكيد البريد الألكتروني', state: ToastStates.ERROR);
@@ -98,6 +91,10 @@ class LoginScreen2 extends StatelessWidget {
                                 email: emailController.text,
                                 password: passwordController.text,
                               );
+                            }
+                            if (state is GetUserSuccessState){
+                              if(state.user == 'patient') {navigateAndFinish(context,PatientLayout());}
+                              else if(state.user == 'doctor') {navigateAndFinish(context,DoctorLayout());}
                             }
                           },
                           text: 'تسجيل الدخول',

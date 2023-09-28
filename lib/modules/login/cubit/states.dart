@@ -20,4 +20,7 @@ class ChangePasswordVisibilityState extends LoginStates {}
 
 class GetUserLoadingState extends LoginStates {}
 
-class GetUserSuccessState extends LoginStates {}
+class GetUserSuccessState extends LoginStates {
+  final String user;
+  GetUserSuccessState(this.user);
+}

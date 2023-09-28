@@ -3,9 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myclinic/modules/login/cubit/states.dart';
+import 'package:myclinic/shared/components/cache_helper.dart';
 import 'package:myclinic/shared/components/components.dart';
+import 'package:myclinic/shared/components/constant.dart';
 
-import '../../../shared/components/constant.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
   LoginCubit() : super(LoginInitialState());
@@ -17,19 +18,19 @@ class LoginCubit extends Cubit<LoginStates> {
     required String password,
   }) {
     emit(LoginLoadingState());
-    FirebaseAuth.instance
-        .signInWithEmailAndPassword(
+    FirebaseAuth.instance.signInWithEmailAndPassword(
       email: email,
       password: password,
-    )
-        .then((value) {
+    ).then((value) {
       print(value.user?.email);
       print(value.user?.uid);
       if(FirebaseAuth.instance.currentUser!.emailVerified)
         {
           checkUser(value.user!.uid);
-          emit(LoginSuccessState(value.user!.uid));
         }
+      if(state is GetUserSuccessState){
+        emit(LoginSuccessState(value.user!.uid));
+      }
       if (state is LoginSuccessState) {
         showToast(text: 'تم تسجيل الدخول بنجاح', state: ToastStates.SUCCESS);
       }
@@ -43,8 +44,7 @@ class LoginCubit extends Cubit<LoginStates> {
 
   void changePasswordVisibility() {
     isPassword = !isPassword;
-    suffixIcon =
-        isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
+    suffixIcon = isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
 
     emit(ChangePasswordVisibilityState());
   }
@@ -56,21 +56,25 @@ class LoginCubit extends Cubit<LoginStates> {
     FirebaseFirestore.instance.collection('doctors').snapshots().listen((event) {
       event.docs.forEach((doctor)
       {
-        if (doctor.data()['uid'] != uId){
+        print(doctor.data()['uid']);
+        if (doctor.data()['uid'] == uId){
           user = 'doctor';
+          CacheHelper.saveData(key: 'user', value: 'doctor');
+          emit(GetUserSuccessState('doctor'));
         }
       });
-      emit(GetUserSuccessState());
     });
 
     FirebaseFirestore.instance.collection('patients').snapshots().listen((event) {
       event.docs.forEach((patient)
       {
-        if (patient.data()['uid'] != uId){
+        print(patient.data()['uid']);
+        if (patient.data()['uid'] == uId){
           user = 'patient';
+          CacheHelper.saveData(key: 'user', value: 'patient');
+          emit(GetUserSuccessState('patient'));
         }
       });
-      emit(GetUserSuccessState());
     });
   }
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myclinic/layout/patient_layout/patient_layoyt.dart';
 import 'package:myclinic/modules/register/cubit/cubit.dart';
 import 'package:myclinic/modules/register/cubit/states.dart';
+import 'package:myclinic/shared/components/cache_helper.dart';
 import 'package:myclinic/shared/components/components.dart';
 
 // ignore: must_be_immutable
@@ -22,6 +24,10 @@ class RegisterAsPatient extends StatelessWidget {
         listener: (context,state) {
           if (state is RegisterErrorState) {
             showToast(text: 'البريد الالكتروني او كلمة المرور غير صحيح', state: ToastStates.ERROR);
+          }
+          if(state is RegisterSuccessState){
+            CacheHelper.saveData(key: 'user', value: 'patient');
+            navigateTo(context, PatientLayout());
           }
         },
         builder: (context,state) {
@@ -52,6 +58,7 @@ class RegisterAsPatient extends StatelessWidget {
                           validate: (String? value) {if (value!.isEmpty) {return 'رجاءً ادخل رقم الهاتف بشكل صحيح';}
                           return null;},
                           label: 'رقم الهاتف', prefixIcon: Icons.phone),
+                      SizedBox(height: 20,),
                       defaultFormField(
                           controller: passwordController, type: TextInputType.text,
                           validate: (String? value) {if (value!.isEmpty) {return 'رجاءً ادخل الباسورد الصحيح';}
