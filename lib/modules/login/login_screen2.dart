@@ -8,6 +8,7 @@ import 'package:myclinic/modules/login/cubit/cubit.dart';
 import 'package:myclinic/modules/login/cubit/states.dart';
 import 'package:myclinic/shared/components/components.dart';
 import '../../shared/components/cache_helper.dart';
+import '../../shared/components/constant.dart';
 
 // ignore: must_be_immutable
 class LoginScreen2 extends StatelessWidget {
@@ -22,22 +23,30 @@ class LoginScreen2 extends StatelessWidget {
       child: BlocConsumer<LoginCubit, LoginStates>(
         listener: (context, state) {
           if (state is LoginErrorState) {
-            showToast(text: 'البريد الالكتروني او كلمة المرور غير صحيح', state: ToastStates.ERROR);
+            showToast(
+                text: 'البريد الالكتروني او كلمة المرور غير صحيح',
+                state: ToastStates.ERROR);
           }
-          if (state is LoginSuccessState)
-            {
-              CacheHelper.saveData(
-                key: 'uId',
-                value: state.uId,
-              );
+          if (state is LoginSuccessState) {
+            CacheHelper.saveData(
+              key: 'uId',
+              value: state.uId,
+            );
+            if (user == 'patient') {
+              navigateAndFinish(context, PatientLayout());
+            } else if (user == 'doctor') {
+              navigateAndFinish(context, DoctorLayout());
             }
-          if(!FirebaseAuth.instance.currentUser!.emailVerified){
-            showToast(text: 'قم بتأكيد البريد الألكتروني', state: ToastStates.ERROR);
+          }
+          if (!FirebaseAuth.instance.currentUser!.emailVerified) {
+            showToast(
+                text: 'قم بتأكيد البريد الألكتروني', state: ToastStates.ERROR);
           }
         },
         builder: (context, state) {
           return Scaffold(
-            appBar: appBarWithArrowBack(context: context, title: 'تسجيل الدخول'),
+            appBar:
+                appBarWithArrowBack(context: context, title: 'تسجيل الدخول'),
             body: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Form(
@@ -91,10 +100,6 @@ class LoginScreen2 extends StatelessWidget {
                                 email: emailController.text,
                                 password: passwordController.text,
                               );
-                            }
-                            if (state is GetUserSuccessState){
-                              if(state.user == 'patient') {navigateAndFinish(context,PatientLayout());}
-                              else if(state.user == 'doctor') {navigateAndFinish(context,DoctorLayout());}
                             }
                           },
                           text: 'تسجيل الدخول',

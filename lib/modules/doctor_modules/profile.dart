@@ -4,6 +4,10 @@ import 'package:myclinic/layout/doctor_layout/cubit/cubit.dart';
 import 'package:myclinic/layout/doctor_layout/cubit/states.dart';
 import 'package:myclinic/shared/components/components.dart';
 
+import '../../shared/components/cache_helper.dart';
+import '../../shared/components/constant.dart';
+import '../login/login_screen1.dart';
+
 class ProfileScreen extends StatelessWidget {
 
   @override
@@ -78,6 +82,26 @@ class ProfileScreen extends StatelessWidget {
               Row(children: [
                 dataLabel('البريد الالكتروني', 'om.dr.omer2020445@gmail.com'),
               ],mainAxisAlignment:MainAxisAlignment.end,
+              ),
+              SizedBox(height: 10.0,),
+              Center(
+                child: Container(
+                  width: 150.0,
+                  height: 50.0,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.circular(25.0),
+                    color: Colors.red.shade400,
+                  ),
+                  child: TextButton(onPressed: (){
+                    CacheHelper.removeData(key: 'uid');
+                    CacheHelper.removeData(key: 'user');
+                    uId ='';
+                    user = '';
+                    DoctorCubit.get(context).currentIndex = 0;
+                    navigateAndFinish(context, LoginScreen());
+                  }, child: Text('تسجيل خروج',style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold,color: Colors.black),), ),
+                ),
               ),
             ]
           ),

@@ -12,7 +12,9 @@ class DoctorNotificationsScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
-          child: Container(),
+          child: Scaffold(
+            appBar:appBarWithArrowBack(context: context, title: 'الاِشعارات'),
+          ),
         ),
       ),
     );

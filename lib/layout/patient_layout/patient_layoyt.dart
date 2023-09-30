@@ -13,15 +13,9 @@ class PatientLayout extends StatelessWidget {
       builder: (context , state ){
         var cubit = PatientCubit.get(context);
         return Scaffold(
-          appBar: AppBar(
-            title: Text(cubit.titles[cubit.currentIndex],style: TextStyle(fontSize: 24.0),),
-          centerTitle: true,
-          backgroundColor: Colors.blueGrey,),
+          appBar: appBarWithIcon(context: context, title: cubit.titles[cubit.currentIndex]),
           body: cubit.screens[cubit.currentIndex],
           bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: Colors.blueGrey,
-            unselectedItemColor: Colors.white,
-            selectedItemColor: Colors.tealAccent,
             currentIndex: cubit.currentIndex,
             onTap: (index) {
               cubit.changeBottomNav(index);
