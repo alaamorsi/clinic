@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myclinic/modules/patient/doctor_reservation_screen.dart';
+import 'package:myclinic/modules/patient/patient_reservation_screen.dart';
 import 'package:myclinic/shared/components/components.dart';
 
 class DoctorReservationDetailsScreen extends StatelessWidget {

@@ -1,6 +1,8 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myclinic/layout/doctor_layout/doctor_layout.dart';
+import 'package:myclinic/modules/login/login_screen2.dart';
 import 'package:myclinic/modules/register/cubit/cubit.dart';
 import 'package:myclinic/modules/register/cubit/states.dart';
 import 'package:myclinic/shared/components/components.dart';
@@ -25,11 +27,11 @@ class RegisterAsDoctor extends StatelessWidget {
       child: BlocConsumer<RegisterCubit, RegisterStates>(
         listener: (context, state) {
           if (state is RegisterErrorState) {
-            showToast(text: 'البريد الالكتروني او كلمة المرور غير صحيح', state: ToastStates.ERROR);
+            showToast(text: 'الحساب موجود بالفعل', state: ToastStates.ERROR);
           }
-          if( state is RegisterSuccessState){
+          if (state is RegisterSuccessState) {
             CacheHelper.saveData(key: 'user', value: 'doctor');
-            navigateTo(context, DoctorLayout());
+            navigateTo(context, LoginScreen2());
           }
         },
         builder: (context, state) {
@@ -104,18 +106,28 @@ class RegisterAsDoctor extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 60.0),
-                      child: firstButton(
+                      child: ConditionalBuilder(
+                        condition: state is! RegisterLoadingState,
+                        builder: (context) => firstButton(
                           function: () {
                             if (formKey.currentState!.validate()) {
                               RegisterCubit.get(context).DoctorRegister(
+                                name: nameController.text,
                                 email: emailController.text,
                                 password: passwordController.text,
-                                name: nameController.text,
                                 phone: phoneController.text,
                               );
                             }
+                            // if (state is RegisterSuccessState) {
+                            //   navigateTo(context, LoginScreen2());
+                            // }
                           },
-                          text: 'انشاء الحساب'),
+                          text: 'إنشاء حساب',
+                          isUpperCase: true,
+                        ),
+                        fallback: (context) =>
+                            Center(child: CircularProgressIndicator()),
+                      ),
                     ),
                   ]),
                 ),

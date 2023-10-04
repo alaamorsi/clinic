@@ -19,6 +19,7 @@ class ReScreen extends StatelessWidget {
             condition: true,
             builder: (BuildContext context) {
               return ListView.separated(
+                physics: BouncingScrollPhysics(),
                 itemBuilder: (BuildContext context, int index)=>ReservedCard((index+1).toString(), 'الاسم', 'العمر'),
                 separatorBuilder: (BuildContext context, int index)=>SizedBox(height: 20,),
                 itemCount: 10,

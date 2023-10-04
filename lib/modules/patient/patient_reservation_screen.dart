@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myclinic/layout/patient_layout/cubit/cubit.dart';
 import 'package:myclinic/layout/patient_layout/cubit/states.dart';
-import 'package:myclinic/modules/patient/doctor_reservation_result.dart';
+import 'package:myclinic/modules/patient/patient_reservation_result.dart';
 import 'package:myclinic/shared/components/components.dart';
 
 class DoctorReservationScreen extends StatelessWidget {

@@ -15,12 +15,13 @@ class PatientProfileScreen extends StatelessWidget {
   var addressController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    var cubit = PatientCubit.get(context);
     return BlocConsumer<PatientCubit , PatientStates>(
       listener: (context , state ){},
       builder: (context , state ){
-        nameController.text = 'علاء مرسي فتحي مرسي';
-        phoneController.text = '01150068522';
-        addressController.text = 'بجوار مدرسة سيلا الإبتدإية';
+        nameController.text = cubit.patientModel!.name;
+        phoneController.text = cubit.patientModel!.phone;
+        addressController.text = cubit.patientModel!.address;
         return Scaffold(
           body: Padding(
             padding: const EdgeInsets.all(20.0),
@@ -35,7 +36,7 @@ class PatientProfileScreen extends StatelessWidget {
                       backgroundColor: Colors.tealAccent,
                       child: CircleAvatar(
                         radius: 100.0,
-                        backgroundImage: AssetImage('assets/me.jpg'),
+                        backgroundImage: NetworkImage(cubit.patientModel!.image),
                       ),
                     ),
                   ),

@@ -6,19 +6,19 @@ import 'package:myclinic/shared/components/components.dart';
 class DoctorReservationResult extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery
-        .of(context)
-        .size
-        .height;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'نتيجة الحجز',
           style: TextStyle(fontSize: 24.0),
         ),
-        leading: IconButton(onPressed: () {
-          navigateAndFinish(context, PatientLayout());
-        }, icon: Icon(Icons.arrow_back_rounded),),
+        leading: IconButton(
+          onPressed: () {
+            navigateAndFinish(context, PatientLayout());
+          },
+          icon: Icon(Icons.arrow_back_rounded),
+        ),
         centerTitle: true,
         backgroundColor: Colors.blueGrey,
       ),
@@ -52,11 +52,14 @@ class DoctorReservationResult extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 5.0),
                         child: Text(
-                          'اسم المريض : علاء مرسي فتحي مرسي', style: TextStyle(
-                            fontWeight: FontWeight.bold),),
+                          'اسم المريض : علاء مرسي فتحي مرسي',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
-                    SizedBox(height: 10.0,),
+                    SizedBox(
+                      height: 10.0,
+                    ),
                     Container(
                       alignment: AlignmentDirectional.centerEnd,
                       width: 150.0,
@@ -68,11 +71,15 @@ class DoctorReservationResult extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                        child: Text('العمر : 21 عام', style: TextStyle(
-                            fontWeight: FontWeight.bold),),
+                        child: Text(
+                          'العمر : 21 عام',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
-                    SizedBox(height: 10.0,),
+                    SizedBox(
+                      height: 10.0,
+                    ),
                     Container(
                       alignment: AlignmentDirectional.centerEnd,
                       width: 250.0,
@@ -86,19 +93,27 @@ class DoctorReservationResult extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 5.0),
                         child: Row(
                           children: [
-                            Text('2023 / 10 / 1',
-                              style: TextStyle(fontWeight: FontWeight.bold),),
+                            Text(
+                              '2023 / 10 / 1',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             Spacer(),
-                            Text('-',
-                              style: TextStyle(fontWeight: FontWeight.bold),),
+                            Text(
+                              '-',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             Spacer(),
-                            Text('موعد الحجز : الجمعة',
-                              style: TextStyle(fontWeight: FontWeight.bold),),
+                            Text(
+                              'موعد الحجز : الجمعة',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                           ],
                         ),
                       ),
                     ),
-                    SizedBox(height: 10.0,),
+                    SizedBox(
+                      height: 10.0,
+                    ),
                     Container(
                       alignment: AlignmentDirectional.centerEnd,
                       width: 150.0,
@@ -110,11 +125,15 @@ class DoctorReservationResult extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                        child: Text('دورك : 3', style: TextStyle(
-                            fontWeight: FontWeight.bold),),
+                        child: Text(
+                          'دورك : 3',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
-                    SizedBox(height: 10.0,),
+                    SizedBox(
+                      height: 10.0,
+                    ),
                     Container(
                       alignment: AlignmentDirectional.centerEnd,
                       width: 150.0,
@@ -126,8 +145,10 @@ class DoctorReservationResult extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                        child: Text('كشف', style: TextStyle(
-                            fontWeight: FontWeight.bold),),
+                        child: Text(
+                          'كشف',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                     Spacer(),
@@ -140,15 +161,17 @@ class DoctorReservationResult extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: Colors.greenAccent[400],
                             borderRadius: BorderRadius.circular(10.0),
-                            border: Border.all(
-                                color: Colors.black
-                            ),
+                            border: Border.all(color: Colors.black),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('✔ تم الحجز بنجاح',
-                                style: TextStyle(fontSize: 20.0,),),
+                              Text(
+                                '✔ تم الحجز بنجاح',
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                ),
+                              ),
                             ],
                           ),
                         ),

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:myclinic/layout/patient_layout/cubit/cubit.dart';
 import 'package:myclinic/layout/patient_layout/cubit/states.dart';
-import 'package:myclinic/modules/patient/doctor_reservation_details_screen.dart';
+import 'package:myclinic/modules/patient/patient_reservation_details_screen.dart';
 import 'package:myclinic/shared/components/components.dart';
 
 class DoctorsListScreen extends StatelessWidget {

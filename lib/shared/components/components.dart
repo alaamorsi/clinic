@@ -50,7 +50,7 @@ PreferredSizeWidget appBarWithIcon({
       title: Text(
         title,
         style: TextStyle(
-            color: Colors.black, fontWeight: FontWeight.bold, fontSize: 28.0),
+            color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20.0),
       ),
       actions: [
         IconButton(
@@ -92,7 +92,7 @@ PreferredSizeWidget appBarWithArrowBack({
           color: Colors.black),
       title: Text(
         title,
-        style: TextStyle(color: Colors.black, fontSize: 30.0),
+        style: TextStyle(color: Colors.black, fontSize: 20.0),
       ),
       centerTitle: true,
       elevation: 0.0,
@@ -234,7 +234,7 @@ Widget dataLabel(String title,String data)
           constraints: BoxConstraints(maxWidth: 190.0),
           child: Text(data,style: TextStyle(fontSize: 16,color: Colors.black),overflow:TextOverflow.ellipsis,),
         ),
-        Text(' : $title',style: TextStyle(fontSize: 16,color: Colors.black)),
+        Text(' : $title',style: TextStyle(fontSize: 15.5,color: Colors.black),overflow: TextOverflow.ellipsis,),
       ]
     ),
   ),

@@ -34,9 +34,9 @@ class PatientCubit extends Cubit<PatientStates> {
   }
 
   PatientModel? patientModel;
-  void getUserData() {
+  void getPatientData() {
     emit(GetPatientDataLoadingState());
-    FirebaseFirestore.instance.collection('users').doc(uId).get().then((value) {
+    FirebaseFirestore.instance.collection('patients').doc(uId).get().then((value) {
       //print(value.data());
       patientModel = PatientModel.fromJson(value.data()!);
       emit(GetPatientDataSuccessState());
@@ -54,4 +54,7 @@ class PatientCubit extends Cubit<PatientStates> {
     print(iskashf);
     emit(ChangeTypeReservationState());
   }
+
+
+
 }

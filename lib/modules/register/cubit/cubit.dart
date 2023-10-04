@@ -17,25 +17,23 @@ class RegisterCubit extends Cubit<RegisterStates> {
     required String email,
     required String password,
     required String phone,
-  })
-  {
+  }) {
     emit(RegisterLoadingState());
-    FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-    ).then((value)
-    {
-      DoctorCreate(name: name, email: email, phone: phone, uid: value.user!.uid);
-      if (FirebaseAuth.instance.currentUser!.emailVerified) {
-        showToast(text: 'تم التسجيل بنجاح', state: ToastStates.SUCCESS);
-        emit(RegisterSuccessState());
-      }
-    }
-    ).catchError((error)
-    {
+    FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    )
+        .then((value) {
+      showToast(
+          text: 'قم بتأكيد الحساب الإلكتروني', state: ToastStates.ERROR);
+      FirebaseAuth.instance.currentUser!.sendEmailVerification();
+          DoctorCreate(
+              name: name, email: email, phone: phone, uid: value.user!.uid);
+          emit(RegisterSuccessState());
+    }).catchError((error) {
       emit(RegisterErrorState(error.toString()));
-    }
-    );
+    });
   }
 
   void DoctorCreate({
@@ -43,15 +41,15 @@ class RegisterCubit extends Cubit<RegisterStates> {
     required String email,
     required String phone,
     required String uid,
-  })
-  {
+  }) {
     DoctorModel model = DoctorModel(
       name: name,
       email: email,
       phone: phone,
       uid: uid,
       isEmailVerified: false,
-      image: 'https://www.shutterstock.com/image-photo/young-handsome-man-beard-wearing-600w-1768126784.jpg',
+      image:
+          'https://www.shutterstock.com/image-photo/young-handsome-man-beard-wearing-600w-1768126784.jpg',
       address: '',
       experience: '',
       specialty: '',
@@ -61,11 +59,13 @@ class RegisterCubit extends Cubit<RegisterStates> {
       workHours: '',
     );
 
-    FirebaseFirestore.instance.collection('doctors').doc(uid).set(model.toMap())
-        .then((value){
-          FirebaseAuth.instance.currentUser!.sendEmailVerification();
-          emit(CreateDoctorSuccessState());
-    }).catchError((error){
+    FirebaseFirestore.instance
+        .collection('doctors')
+        .doc(uid)
+        .set(model.toMap())
+        .then((value) {
+      emit(CreateDoctorSuccessState());
+    }).catchError((error) {
       emit(CreateDoctorErrorState(error));
     });
   }
@@ -75,25 +75,23 @@ class RegisterCubit extends Cubit<RegisterStates> {
     required String email,
     required String password,
     required String phone,
-  })
-  {
+  }) {
     emit(RegisterLoadingState());
-    FirebaseAuth.instance.createUserWithEmailAndPassword(
+    FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
       email: email,
       password: password,
-    ).then((value)
-    {
-      PatientCreate(name: name, email: email, phone: phone, uid: value.user!.uid);
-      if (FirebaseAuth.instance.currentUser!.emailVerified) {
-        showToast(text: 'تم التسجيل بنجاح', state: ToastStates.SUCCESS);
-        emit(RegisterSuccessState());
-      }
-    }
-    ).catchError((error)
-    {
+    )
+        .then((value) {
+      showToast(
+          text: 'قم بتأكيد الحساب الإلكتروني', state: ToastStates.ERROR);
+      FirebaseAuth.instance.currentUser!.sendEmailVerification();
+      PatientCreate(
+          name: name, email: email, phone: phone, uid: value.user!.uid);
+      emit(RegisterSuccessState());
+    }).catchError((error) {
       emit(RegisterErrorState(error.toString()));
-    }
-    );
+    });
   }
 
   void PatientCreate({
@@ -101,23 +99,25 @@ class RegisterCubit extends Cubit<RegisterStates> {
     required String email,
     required String phone,
     required String uid,
-  })
-  {
+  }) {
     PatientModel model = PatientModel(
       name: name,
       email: email,
       phone: phone,
       uid: uid,
       isEmailVerified: false,
-      image: 'https://www.shutterstock.com/image-photo/young-handsome-man-beard-wearing-600w-1768126784.jpg',
+      image:
+          'https://www.shutterstock.com/image-photo/young-handsome-man-beard-wearing-600w-1768126784.jpg',
       address: '',
     );
 
-    FirebaseFirestore.instance.collection('patients').doc(uid).set(model.toMap())
-        .then((value){
-          FirebaseAuth.instance.currentUser!.sendEmailVerification();
-          emit(CreatePatientSuccessState());
-    }).catchError((error){
+    FirebaseFirestore.instance
+        .collection('patients')
+        .doc(uid)
+        .set(model.toMap())
+        .then((value) {
+      emit(CreatePatientSuccessState());
+    }).catchError((error) {
       emit(CreatePatientErrorState(error));
     });
   }
@@ -125,10 +125,10 @@ class RegisterCubit extends Cubit<RegisterStates> {
   IconData suffixIcon = Icons.visibility_outlined;
   bool isPassword = true;
 
-  void changePasswordVisibility()
-  {
+  void changePasswordVisibility() {
     isPassword = !isPassword;
-    suffixIcon = isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined ;
+    suffixIcon =
+        isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
     emit(RegisterChangePasswordVisibilityState());
   }
 }

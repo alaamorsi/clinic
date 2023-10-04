@@ -40,7 +40,7 @@ class LoginScreen2 extends StatelessWidget {
           }
           if (!FirebaseAuth.instance.currentUser!.emailVerified) {
             showToast(
-                text: 'قم بتأكيد البريد الألكتروني', state: ToastStates.ERROR);
+                text: 'قم بتأكيد البريد الإلكتروني', state: ToastStates.ERROR);
           }
         },
         builder: (context, state) {

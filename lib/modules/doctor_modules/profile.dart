@@ -15,6 +15,8 @@ class ProfileScreen extends StatelessWidget {
     return BlocConsumer<DoctorCubit,DoctorStates>(
       listener: (context,state) {},
       builder:(context,state){
+        double screenWidth = MediaQuery.of(context).size.width;
+        double fontSize = screenWidth * 0.05;
         String imUrl='https://img.freepik.com/free-photo/smiling-doctor-with-strethoscope-isolated-grey_651396-974.jpg?size=626&ext=jpg&ga=GA1.1.1147619377.1695562532&semt=sph';
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -100,9 +102,10 @@ class ProfileScreen extends StatelessWidget {
                     user = '';
                     DoctorCubit.get(context).currentIndex = 0;
                     navigateAndFinish(context, LoginScreen());
-                  }, child: Text('تسجيل خروج',style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold,color: Colors.black),), ),
+                  }, child: Text('تسجيل خروج',style: TextStyle(fontSize: fontSize.toDouble(),fontWeight: FontWeight.bold,color: Colors.black),), ),
                 ),
               ),
+              Text('${fontSize}'),
             ]
           ),
         );
